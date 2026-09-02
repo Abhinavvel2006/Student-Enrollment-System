@@ -1234,8 +1234,24 @@ button {
 
 .filters {
     display: grid;
-    grid-template-columns: 1.4fr 1fr 0.7fr 1fr;
+    grid-template-columns: minmax(220px, 1.4fr) minmax(180px, 1fr) minmax(150px, 0.7fr) auto;
     gap: 14px;
+}
+
+.filter-btn {
+    align-self: end;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 8px;
+    min-width: 164px;
+    height: 42px;
+}
+
+.filter-btn .btn {
+    width: 78px;
+    height: 42px;
+    padding: 10px 12px;
 }
 
 .field label {
@@ -1611,6 +1627,16 @@ button {
     .cards,
     .filters {
         grid-template-columns: 1fr;
+    }
+
+    .filter-btn {
+        width: 100%;
+        min-width: 0;
+        justify-content: stretch;
+    }
+
+    .filter-btn .btn {
+        flex: 1;
     }
 
     .panel-head {

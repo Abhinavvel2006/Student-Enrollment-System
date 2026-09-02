@@ -7,7 +7,9 @@ from config import SECRET_KEY
 from auth.admin_auth.admin import (
     admin_login as process_admin_login,
     admin_dashboard as show_admin_dashboard,
-    admin_student_admission as show_admin_admission
+    admin_student_admission as show_admin_admission,
+    admin_accept_application as process_application_acceptance,
+    admin_reject_application as process_application_rejection
     # admin_student_page as admin_edit_page
 )
 
@@ -44,6 +46,14 @@ def admin_dashboard():
 @app.route("/student_admission", methods=['POST'])
 def admin_student_admission_page():
         return show_admin_admission()
+
+@app.route("/admin/applications/<int:application_id>/accept", methods=['POST'])
+def admin_accept_application_page(application_id):
+    return process_application_acceptance(application_id)
+
+@app.route("/admin/applications/<int:application_id>/reject", methods=['POST'])
+def admin_reject_application_page(application_id):
+    return process_application_rejection(application_id)
 
 @app.route("/admin_logout")
 def admin_logout():

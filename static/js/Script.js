@@ -55,6 +55,8 @@ document.addEventListener('DOMContentLoaded', function () {
     var sections = document.querySelectorAll(".content-section");
     var adminLoginForm = document.getElementById("admin-login-form");
     var adminLoginStatus = document.getElementById("admin-login-status");
+    var applicantFilterForm = document.getElementById("applicant-filter-form");
+    var clearApplicantFilterButton = document.getElementById("clear-applicant-filter");
 
     function showSection(sectionId) {
         sections.forEach(function (section) {
@@ -78,6 +80,18 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
     });
+
+    if (applicantFilterForm) {
+        applicantFilterForm.addEventListener("submit", function () {
+            applicantFilterForm.action = window.location.pathname + "#appication";
+        });
+    }
+
+    if (clearApplicantFilterButton) {
+        clearApplicantFilterButton.addEventListener("click", function () {
+            window.location.href = window.location.pathname + "#appication";
+        });
+    }
 
 }());
 

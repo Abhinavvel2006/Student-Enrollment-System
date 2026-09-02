@@ -171,3 +171,19 @@ select * from student_detail;
 desc department;
 
 alter table student_detail add class_no int not null;
+
+-- One-time migration: student IDs use the scc0001 text format.
+ALTER TABLE student_login DROP FOREIGN KEY fk_login_student;
+ALTER TABLE student_detail MODIFY student_id VARCHAR(20) NOT NULL;
+ALTER TABLE student_login MODIFY student_id VARCHAR(20) NOT NULL;
+ALTER TABLE student_login
+ADD CONSTRAINT fk_login_student
+FOREIGN KEY (student_id) REFERENCES student_detail(student_id);
+
+desc student_login;
+
+select * from student_detail;
+
+select database();
+
+desc student_detail;

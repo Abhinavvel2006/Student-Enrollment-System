@@ -173,7 +173,8 @@
                     <section class="panel">
                         <div class="panel-head">Registered Applicants</div>
                         <div class="panel-body">
-                            <form method="GET" action="{{ url_for('admin_dashboard') }}" class="filter-form">
+                            <form method="GET" action="{{ url_for('admin_dashboard') }}" class="filter-form"
+                                id="applicant-filter-form">
                                 <div class="filters">
                                     <div class="field">
                                         <label for="search-app">Search Application</label>
@@ -200,7 +201,7 @@
                                     </div>
                                     <div class="field">
                                         <label for="status">Status</label>
-                                        <select id="status" class="form-control">
+                                        <select id="status" name="status" class="form-control">
                                             <option value="">All</option>
                                             <option value="PENDING" {% if selected_status=="PENDING" %} selected {%
                                                 endif %}>Pending</option>
@@ -210,10 +211,10 @@
                                                 {%endif %}>Rejected</option>
                                         </select>
                                     </div>
-                                    <div class="field">
-                                        <label for="date">Date</label>
-                                        <input id="date" class="form-control" type="date" name="date"
-                                            value="{{ selected_date or '' }}">
+                                    <div class="filter-btn">
+                                        <button type="submit" class="btn btn-primary btn-sm">Filter</button>
+                                        <button type="button" id="clear-applicant-filter"
+                                            class="btn btn-danger btn-sm">Clear</button>
                                     </div>
                                 </div>
                             </form>
@@ -244,12 +245,18 @@
                                         <td>{{ application.status }}</td>
                                         <td class="action-buttons">
                                             <div class="action-stack">
-                                                <form method="POST" action="#">
-                                                    <button type="submit" class="btn btn-success btn-sm">Accept</button>
-                                                </form>
-                                                <form method="POST" action="#">
-                                                    <button type="submit" class="btn btn-danger btn-sm">Reject</button>
-                                                </form>
+                                                {% if application.status == 'PENDING' %}
+                                                    <form method="POST"
+                                                        action="{{ url_for('admin_accept_application_page', application_id=application.application_id) }}">
+                                                        <button type="submit" class="btn btn-success btn-sm">Accept</button>
+                                                    </form>
+                                                    <form method="POST"
+                                                        action="{{ url_for('admin_reject_application_page', application_id=application.application_id) }}">
+                                                        <button type="submit" class="btn btn-danger btn-sm">Reject</button>
+                                                    </form>
+                                                {% else %}
+                                                    <span class="text-muted">Decision finalized</span>
+                                                {% endif %}
                                             </div>
                                         </td>
                                     </tr>

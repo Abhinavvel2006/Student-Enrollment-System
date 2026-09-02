@@ -1,6 +1,7 @@
 from flask import flash, redirect, render_template, request, url_for, session
 from config import MYSQL_HOST, MYSQL_USER, MYSQL_PASSWORD, MYSQL_DATABASE
 import mysql.connector
+# from werkzeug.security import generate_password_hash, check_password_hash
 from mysql.connector import Error
 
 def admin_login():
@@ -225,6 +226,7 @@ def admin_dashboard():
         if  connection:
             connection.close()
 
+
 def admin_student_admission():
 
     if not session.get("admin_logged_in"):
@@ -282,6 +284,131 @@ def admin_student_admission():
             connection.close()
 
         print("Connection closed")
+
+
+def admin_update_application_status(application_id, new_status):
+
+    if not session.get("admin_logged_in"):
+        return redirect(url_for("admin_login_page"))
+
+    connection = None
+    cursor = None
+    student_id_lock_acquired = False
+
+    try:
+        connection = mysql.connector.connect(
+            host=MYSQL_HOST,
+            user=MYSQL_USER,
+            password=MYSQL_PASSWORD,
+            database=MYSQL_DATABASE
+        )
+        cursor = connection.cursor(dictionary=True)
+
+        # Only pending applications may receive a final decision.
+        cursor.execute("""
+            SELECT sa.application_id, sa.student_name, sa.dob, sa.gender,
+                   sa.department_id, sa.email, sa.phone, sa.address,
+                   d.department_name
+            FROM student_admission sa
+            JOIN department d ON d.department_id = sa.department_id
+            WHERE sa.application_id = %s AND sa.status = 'PENDING'
+            FOR UPDATE
+        """, (application_id,))
+        application = cursor.fetchone()
+
+        if not application:
+            flash("This application is no longer pending and cannot be updated.", "warning")
+            return redirect(url_for("admin_dashboard") + "#application")
+
+        if new_status == "REJECTED":
+            cursor.execute("""
+                UPDATE student_admission
+                SET status = 'REJECTED'
+                WHERE application_id = %s AND status = 'PENDING'
+            """, (application_id,))
+            connection.commit()
+            flash("Application rejected.", "success")
+            return redirect(url_for("admin_dashboard") + "#application")
+
+        cursor.execute("SELECT GET_LOCK('student_detail_id_generation', 10) AS acquired")
+        lock_result = cursor.fetchone()
+        student_id_lock_acquired = bool(lock_result and lock_result["acquired"])
+        if not student_id_lock_acquired:
+            raise Error("Could not obtain the student ID generation lock")
+
+        cursor.execute("""
+            SELECT student_id
+            FROM student_detail
+            WHERE student_id REGEXP '^scc[0-9]+$'
+            ORDER BY CAST(SUBSTRING(student_id, 4) AS UNSIGNED) DESC
+            LIMIT 1
+            FOR UPDATE
+        """)
+        latest_student = cursor.fetchone()
+        next_number = int(latest_student["student_id"][3:]) + 1 if latest_student else 1
+        student_id = f"scc{next_number:04d}"
+
+        cursor.execute("SELECT student_id FROM student_detail WHERE application_id = %s", (application_id,))
+        if cursor.fetchone():
+            raise Error("A student record already exists for this application")
+
+        cursor.execute("""
+            UPDATE student_admission
+            SET status = 'ACCEPTED'
+            WHERE application_id = %s AND status = 'PENDING'
+        """, (application_id,))
+        if cursor.rowcount != 1:
+            raise Error("Application status could not be updated")
+
+        cursor.execute("""
+            INSERT INTO student_detail
+            (student_id, application_id, student_name, dob, gender, department_id,
+             email, phone, address, status, joined_at, department_name, class_no)
+            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, 'ACCEPTED',
+                    CURRENT_TIMESTAMP, %s, %s)
+        """, (
+            student_id,
+            application["application_id"],
+            application["student_name"],
+            application["dob"],
+            application["gender"],
+            application["department_id"],
+            application["email"],
+            application["phone"],
+            application["address"],
+            application["department_name"],
+            1
+        ))
+        connection.commit()
+        flash(f"Application accepted. Student ID: {student_id}", "success")
+        return redirect(url_for("admin_dashboard") + "#appication")
+
+    except Error as e:
+        if connection:
+            connection.rollback()
+        print("Database Error:", e)
+        flash("Could not update the application. Please try again.", "danger")
+        return redirect(url_for("admin_dashboard") + "#appication")
+
+    finally:
+        if cursor and student_id_lock_acquired:
+            try:
+                cursor.execute("SELECT RELEASE_LOCK('student_detail_id_generation')")
+                cursor.fetchone()
+            except Error as e:
+                print("Student ID lock release error:", e)
+        if cursor:
+            cursor.close()
+        if connection:
+            connection.close()
+
+
+def admin_accept_application(application_id):
+    return admin_update_application_status(application_id, "ACCEPTED")
+
+
+def admin_reject_application(application_id):
+    return admin_update_application_status(application_id, "REJECTED")
 
 # def admin_student_page():
 #
