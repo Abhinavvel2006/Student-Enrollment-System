@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Enrollment System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap-3.3.7-dist/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#mainNavbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+
+                <div class="college-header-bar">
+                    <a class="navbar-brand college-brand" href="#" onclick="showSection('home'); return false;">
+                        <img src="{{ url_for('static', filename='images/logo.png') }}" alt="College Logo">
+                        <span>
+                            <strong>Scott Christian College</strong>
+                            <small>Student Enrollment System</small>
+                            <em>Affiliated to Manonmaniam Sundaranar University, Tirunelveli</em>
+                        </span>
+                    </a>
+
+                    <div class="college-header-meta">
+                        <div class="college-header-item">
+                            <span class="glyphicon glyphicon-earphone"></span>
+                            <div>
+                                <strong>Contact</strong>
+                                <small>+91 9586157231</small>
+                            </div>
+                        </div>
+                        <div class="college-header-item">
+                            <span class="glyphicon glyphicon-certificate"></span>
+                            <div>
+                                <strong>NAAC Accreditation: A+</strong>
+                                <small>CGPA: 3.26</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="collapse navbar-collapse" id="mainNavbar">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#home" onclick="showSection('home')"><span class="glyphicon glyphicon-home"></span>
+                            Home</a></li>
+                    <li><a href="#about" onclick="showSection('about')">About</a></li>
+                    <li><a href="#admissions" onclick="showSection('admissions')">Admissions</a></li>
+                    <li><a href="#programs" onclick="showSection('programs')">Programs</a></li>
+                    <li><a href="#login" onclick="showSection('login')">Student Login</a></li>
+                    <li><a href="#contact" onclick="showSection('contact')">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+<!--    banner-->
+    <div class="college-banner">
+        <div class="container text-center">
+            <h2>Shaping Careers. Building Futures.</h2>
+            <p>Admissions Open for 2026-2027 - Apply Today</p>
+            <button class="btn btn-primary" onclick="showSection('admissions')">Apply Now</button>
+        </div>
+    </div>
+
+<!-- Chatbot -->
+<div class="chatbot-container">
+    <!-- Chatbot Button -->
+    <button class="chatbot-button" id="chatbotButton">
+        <img src="{{ url_for('static', filename='images/robot.jpg') }}"
+             alt="Chatbot" class="img-rounded">
+    </button>
+    <!-- Chatbot Window -->
+    <div class="chatbot-window" id="chatbotWindow">
+        <div class="chatbot-header">
+            <div class="chatbot-title">
+                <img src="{{ url_for('static', filename='images/robot.jpg') }}"
+                     alt="Robot">
+                <span>Enrollment Assistant</span>
+            </div>
+            <button class="chatbot-close" id="chatbotClose">
+                &times;
+            </button>
+        </div>
+        <div class="chatbot-messages" id="chatbotMessages">
+            <div class="bot-message">
+                Hello! 👋<br>
+                How can I help you?
+            </div>
+        </div>
+        <div class="chatbot-options">
+            <button class="chat-option">
+                👤 Registration
+            </button>
+            <button class="chat-option">
+                📄 Required Documents
+            </button>
+            <button class="chat-option">
+                🏫 Departments
+            </button>
+            <button class="chat-option">
+                🔍 Enrollment Status
+            </button>
+            <button class="chat-option">
+                ❓ Help
+            </button>
+        </div>
+        <div class="chatbot-input-area">
+            <input type="text" id="chatbotInput" placeholder="Type your question..." autocomplete="off">
+            <button id="chatbotSend" type="button">
+                ➤
+            </button>
+        </div>
+    </div>
+</div>
+
+<!--    main-->
+    <div class="main-content">
+        <section id="home" class="section active-section">
+            <div class="container">
+                <div class="panel panel-default">
+                    <div class="panel-heading text-center">
+                        <h3 class="panel-title"><strong>Campus Gallery</strong></h3>
+                    </div>
+
+                    <div class="panel-body">
+                        <div id="homeCarousel" class="carousel slide" data-ride="carousel">
+                            <ol class="carousel-indicators">
+                                <li data-target="#homeCarousel" data-slide-to="0" class="active"></li>
+                                <li data-target="#homeCarousel" data-slide-to="1"></li>
+                                <li data-target="#homeCarousel" data-slide-to="2"></li>
+                                <li data-target="#homeCarousel" data-slide-to="3"></li>
+                                <li data-target="#homeCarousel" data-slide-to="4"></li>
+                                <li data-target="#homeCarousel" data-slide-to="5"></li>
+                            </ol>
+
+                            <div class="carousel-inner">
+                                <div class="item active">
+                                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQxSla5WpPMuDIQPP3Uyctx3CAtVLF9i7KjH5FrMpTmyw&s=10"
+                                        alt="College Main Building">
+                                </div>
+                                <div class="item">
+                                    <img src="https://www.collegebatch.com/static/clg-gallery/scott-christian-college-kanyakumari-341879.webp"
+                                        alt="Campus Grounds">
+                                </div>
+                                <div class="item">
+                                    <img src="https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=1100&h=400&fit=crop"
+                                        alt="College Library">
+                                </div>
+                                <div class="item">
+                                    <img src="https://www.collegebatch.com/static/clg-gallery/scott-christian-college-kanyakumari-341877.webp"
+                                        alt="Computer Lab">
+                                </div>
+                                <div class="item">
+                                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSy0iJFUNK0myzy66HMCmGMDfYQ3gG5uD9cGseeu0ZIilNTzLORIzOWs7Av&s=10"
+                                        alt="Sports Ground">
+                                </div>
+                                <div class="item">
+                                    <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=1100&h=400&fit=crop"
+                                        alt="Graduation Day">
+                                </div>
+                            </div>
+
+                            <a class="left carousel-control" href="#homeCarousel" data-slide="prev">
+                                <span class="glyphicon glyphicon-chevron-left"></span>
+                            </a>
+                            <a class="right carousel-control" href="#homeCarousel" data-slide="next">
+                                <span class="glyphicon glyphicon-chevron-right"></span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row home-overview">
+                    <div class="col-md-8">
+                        <div class="jumbotron welcome-box">
+                            <h2>Welcome to Scott Christian College</h2>
+                            <p>Empowering the next generation of leaders, engineers, and innovators through world-class
+                                education and research opportunities.</p>
+                            <p><button class="btn btn-primary btn-lg" onclick="showSection('about')">Learn More</button>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Quick Information</h3>
+                            </div>
+                            <div class="panel-body">
+                                <p><strong>Established:</strong> 1893</p>
+                                <p><strong>Students:</strong> 4,500+</p>
+                                <p><strong>Faculty:</strong> 220+</p>
+                                <p><strong>Campus:</strong> 43 Acres</p>
+                                <button class="btn btn-primary btn-block"
+                                    onclick="showSection('admissions')">Admissions</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="section">
+            <div class="container">
+                <div class="page-header">
+                    <h1>About Our Institution</h1>
+                </div>
+
+                <div class="panel panel-primary">
+                    <div class="panel-body">
+                        <p>Founded in 1893, Scott Christian College has a rich tradition of academic excellence,
+                            holistic student development, and cutting-edge technological research.</p>
+                        <hr>
+                        <h3>Our Vision</h3>
+                        <p>Its mission focuses on imparting innovative knowledge, holistic development through dynamic
+                            curricula, outcome-based education, skill enhancement, and shaping morally upright, socially
+                            responsible individuals.</p>
+
+                        <h3>Our Mission</h3>
+                        <p>To provide industry-relevant education, foster innovation and research, and nurture socially
+                            responsible graduates equipped to solve real-world challenges.</p>
+
+                        <h3>Our Motto</h3>
+                        <blockquote>The Truth Shall Make You Free</blockquote>
+                    </div>
+                </div>
+
+                <div class="row program-grid">
+                    <div class="col-md-6">
+                        <div class="panel panel-default">
+                            <div class="panel-heading"><strong>College Details</strong></div>
+                            <ul class="list-group">
+                                <li class="list-group-item"><strong>Established:</strong> 1893</li>
+                                <li class="list-group-item"><strong>Affiliation:</strong> Manonmaniam Sundaranar
+                                    University</li>
+                                <li class="list-group-item"><strong>Accreditation:</strong> NAAC A+ Grade</li>
+                                <li class="list-group-item"><strong>Campus Area:</strong> 43 Acres</li>
+                                <li class="list-group-item"><strong>Total Students:</strong> 4,500+</li>
+                                <li class="list-group-item"><strong>Faculty Members:</strong> 220+</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="panel panel-default">
+                            <div class="panel-heading"><strong>Campus Facilities</strong></div>
+                            <ul class="list-group">
+                                <li class="list-group-item">Central Library</li>
+                                <li class="list-group-item">Computer & Electronics Labs</li>
+                                <li class="list-group-item">Hostel Accommodation</li>
+                                <li class="list-group-item">Sports Complex</li>
+                                <li class="list-group-item">Auditorium and Seminar Halls</li>
+                                <li class="list-group-item">Wi-Fi Enabled Campus</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="btn btn-primary" onclick="showSection('programs')">View Programs</button>
+            </div>
+        </section>
+
+        <section id="admissions" class="section">
+            <div class="container">
+                <div class="page-header">
+                    <h1>Admissions Open for 2026-2027</h1>
+                </div>
+
+                <div class="alert alert-info">
+                    <strong>Admissions Open!</strong> Applications are now available for undergraduate and postgraduate
+                    programs.
+                </div>
+
+                <div class="row contact-grid">
+                    <div class="col-md-4">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">Application Deadline</div>
+                            <div class="panel-body text-center">
+                                <h3>June 30, 2026</h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="panel panel-success">
+                            <div class="panel-heading">Programs</div>
+                            <div class="panel-body text-center">
+                                <h3>UG & PG</h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="panel panel-warning">
+                            <div class="panel-heading">Entrance Exam</div>
+                            <div class="panel-body text-center">
+                                <h3>National / State</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row admission-layout">
+                    <div class="col-lg-5 col-md-5">
+                        <div class="panel panel-default admission-gallery">
+                            <div class="panel-heading">
+                                <strong>Campus Highlights</strong>
+                            </div>
+                            <div class="panel-body">
+                                <p class="admission-gallery-copy">Explore the college atmosphere before you complete the
+                                    application form.</p>
+                                <div class="row admission-gallery-row">
+                                    <div class="col-sm-6 col-md-12">
+                                        <div class="admission-image-card">
+                                            <img src="{{ url_for('static', filename='images/ScottCollegeAdmission1.jpg') }}"
+                                                alt="Scott Christian College entrance">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 col-md-12">
+                                        <div class="admission-image-card">
+                                            <img src="{{ url_for('static', filename='images/ScottCollegeAdmission2.jpg') }}"
+                                                alt="Scott Christian College campus building">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-7 col-md-7">
+                        <div class="panel panel-primary admission-form-panel">
+                            <div class="panel-heading">
+                                <h3 class="panel-title"><strong>Student Enrollment Form</strong></h3>
+                            </div>
+
+                            <div class="panel-body">
+                                <form action="{{ url_for('admission') }}" method="POST" class="admission-form">
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label>Student Name</label>
+                                                <input type="text" name="student_name" class="form-control"
+                                                    placeholder="Enter Student Name" required>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label>Date of Birth</label>
+                                                <input type="date" name="dob" class="form-control">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label>Gender</label>
+                                                <select name="gender" class="form-control">
+                                                    <option>Male</option>
+                                                    <option>Female</option>
+                                                    <option>Other</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label>Department</label>
+                                                <select name="department_id" class="form-control">
+                                                    <option value="1">BCA</option>
+                                                    <option value="2">B.Sc Computer Science</option>
+                                                    <option value="3">B.Com</option>
+                                                    <option value="4">B.Sc Physics</option>
+                                                    <option value="5">B.Sc Chemistry</option>
+                                                    <option value="6">B.Sc Mathematics</option>
+                                                    <option value="7">B.Sc Botany</option>
+                                                    <option value="8">B.A Tamil</option>
+                                                    <option value="9">B.A English</option>
+                                                    <option value="10">B.A History</option>
+                                                    <option value="11">M.Sc Computer Science</option>
+                                                    <option value="12">M.Sc Physics</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label>Phone Number</label>
+                                                <input type="text" name="phone" class="form-control"
+                                                    placeholder="Enter phone number">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>Email</label>
+                                        <input type="email" name="email" class="form-control"
+                                            placeholder="student@example.com">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>Address</label>
+                                        <textarea name="address" rows="3" class="form-control"
+                                            placeholder="Enter address"></textarea>
+                                    </div>
+
+                                    <div class="admission-form-actions">
+                                        <button type="submit" class="btn btn-success btn-lg"><span
+                                                class="glyphicon glyphicon-ok"></span> Enroll Student</button>
+                                        <button type="reset" class="btn btn-default btn-lg">Reset</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="programs" class="section">
+            <div class="container">
+                <div class="page-header">
+                    <h1>Programs Offered</h1>
+                    <p class="lead">Undergraduate and postgraduate programs designed to build strong technical and
+                        professional foundations.</p>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Undergraduate Programs</h3>
+                            </div>
+                            <ul class="list-group">
+                                <li class="list-group-item">BCA - Bachelor of Computer Applications</li>
+                                <li class="list-group-item">B.Sc - Computer Science</li>
+                                <li class="list-group-item">BBA - Bachelor of Business Administration</li>
+                                <li class="list-group-item">B.Com - Bachelor of Commerce</li>
+                                <li class="list-group-item">B.Sc - Physics</li>
+                                <li class="list-group-item">B.Sc - Chemistry</li>
+                                <li class="list-group-item">B.Sc - Mathematics</li>
+                                <li class="list-group-item">B.Sc - Biotony</li>
+                                <li class="list-group-item">B.A - Tamil</li>
+                                <li class="list-group-item">B.A - English</li>
+                                <li class="list-group-item">B.A - History</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="panel panel-success">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Postgraduate Programs</h3>
+                            </div>
+                            <ul class="list-group">
+                                <li class="list-group-item">M.Sc - Computer Science</li>
+                                <li class="list-group-item">MCA - Master of Computer Applications</li>
+                                <li class="list-group-item">MBA - Master of Business Administration</li>
+                                <li class="list-group-item">M.Sc - Physics</li>
+                                <li class="list-group-item">M.Sc - Chemistry</li>
+                                <li class="list-group-item">M.Sc - Mathematics</li>
+                                <li class="list-group-item">M.Sc - Biotony</li>
+                                <li class="list-group-item">M.A - Tamil</li>
+                                <li class="list-group-item">M.A - English</li>
+                                <li class="list-group-item">M.A - History</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel panel-default">
+                    <div class="panel-heading text-center"><strong>Campus Gallery</strong></div>
+                    <div class="panel-body">
+                        <div id="programCarousel" class="carousel slide" data-ride="carousel">
+                            <div class="carousel-inner">
+                                <div class="item active">
+                                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQxSla5WpPMuDIQPP3Uyctx3CAtVLF9i7KjH5FrMpTmyw&s=10"
+                                        alt="College">
+                                </div>
+                                <div class="item">
+                                    <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=1100&h=400&fit=crop"
+                                        alt="Computer Lab">
+                                </div>
+                                <div class="item">
+                                    <img src="https://www.collegebatch.com/static/clg-gallery/scott-christian-college-kanyakumari-341879.webp"
+                                        alt="Campus">
+                                </div>
+                                <div class="item">
+                                    <img src="https://www.collegebatch.com/static/clg-gallery/scott-christian-college-kanyakumari-341877.webp"
+                                        alt="Campus Grounds">
+                                </div>
+                            </div>
+
+                            <a class="left carousel-control" href="#programCarousel" data-slide="prev">
+                                <span class="glyphicon glyphicon-chevron-left"></span>
+                            </a>
+                            <a class="right carousel-control" href="#programCarousel" data-slide="next">
+                                <span class="glyphicon glyphicon-chevron-right"></span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="login" class="section">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4 col-md-offset-4">
+                        <div class="panel panel-primary login-panel">
+                            <div class="panel-heading text-center">
+                                <h3 class="panel-title">Student Portal Login</h3>
+                            </div>
+
+                            <div class="panel-body">
+                                <form method="POST" action="#">
+                                    <div class="form-group">
+                                        <label>Username</label>
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><span
+                                                    class="glyphicon glyphicon-user"></span></span>
+                                            <input type="text" class="form-control" placeholder="Username"
+                                                name="username" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>Password</label>
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><span
+                                                    class="glyphicon glyphicon-lock"></span></span>
+                                            <input type="password" class="form-control" placeholder="Password"
+                                                name="password" required>
+                                        </div>
+                                    </div>
+
+                                    <button type="submit" class="btn btn-primary btn-block">Login</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="section">
+            <div class="container">
+                <div class="page-header">
+                    <h1>Contact Us</h1>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-5">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Contact Information</h3>
+                            </div>
+                            <div class="panel-body">
+                                <p><span class="glyphicon glyphicon-map-marker"></span> <strong>Address</strong><br>K.P
+                                    Road, Parvathipuram, Nagercoil, Tamil Nadu - 629003</p>
+                                <hr>
+                                <p><span class="glyphicon glyphicon-envelope"></span>
+                                    <strong>Email</strong><br>scc@scottchristiancollege.edu</p>
+                                <hr>
+                                <p><span class="glyphicon glyphicon-phone"></span> <strong>Phone</strong><br>+91
+                                    9586157231</p>
+                                <hr>
+                                <p><span class="glyphicon glyphicon-time"></span> <strong>Office Hours</strong><br>Mon -
+                                    Sat, 9:00 AM - 5:00 PM</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-7">
+                        <div class="panel panel-default">
+                            <div class="panel-body map-container">
+                                <iframe
+                                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6641.708679165825!2d77.40793478764283!3d8.184251099628028!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b04f0c5a1031095%3A0xde3a26e07bc3d173!2sScott%20Christian%20College%2C%20Nagercoil!5e0!3m2!1sen!2sin!4v1786543693644!5m2!1sen!2sin"
+                                    width="100%" height="350" style="border:0;" allowfullscreen=""
+                                    loading="lazy"></iframe>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer class="college-footer">
+        <div class="container">
+            <!-- Footer Header -->
+            <div class="footer-header">
+                <h3>Scott Christian College</h3>
+                <p>Student Enrollment System</p>
+            </div>
+
+            <div class="row footer-content">
+                <!-- Navigation Links -->
+                <div class="col-md-4 col-sm-6 footer-section">
+                    <h4>Quick Navigation</h4>
+                    <ul>
+                        <li><a href="#about" onclick="showSection('about')">About Us</a></li>
+                        <li><a href="#programs" onclick="showSection('programs')">Our Programs</a></li>
+                        <li><a href="#admissions" onclick="showSection('admissions')">Apply Now</a></li>
+                        <li><a href="#login" onclick="showSection('login')">Student Portal</a></li>
+                        <li><a href="#contact" onclick="showSection('contact')">Contact</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact Information -->
+                <div class="col-md-4 col-sm-6 footer-section">
+                    <h4>Contact Information</h4>
+                    <p><span class="glyphicon glyphicon-map-marker"></span> <strong>Address</strong><br>K.P Road, Parvathipuram, Nagercoil, Tamil Nadu - 629003</p>
+                    <p><span class="glyphicon glyphicon-phone"></span> <strong>Phone</strong><br>+91 9586157231</p>
+                    <p><span class="glyphicon glyphicon-time"></span> <strong>Hours</strong><br>Mon - Sat, 9:00 AM - 5:00 PM</p>
+                </div>
+
+                <!-- Send Message Section -->
+                <div class="col-md-4 col-sm-6 footer-section">
+                    <h4>Send Message</h4>
+                    <p>Send your queries to our college desk:</p>
+                    <p>
+                        <span class="glyphicon glyphicon-envelope"></span> <strong>Email</strong><br>
+                        <a href="mailto:sccnagercoil@gmail.com" class="footer-email">sccnagercoil@gmail.com</a>
+                    </p>
+                    <p class="footer-notice">We'll respond to your message within 24 hours.</p>
+                </div>
+            </div>
+
+            <!-- Footer Bottom -->
+            <div class="footer-bottom">
+                <p>
+                    <strong>Scott Christian College</strong> | Established 1893 | Student Enrollment System
+                </p>
+                <p>
+                    &copy; 2026. All Rights Reserved. Scott Christian College | 
+                    <a href="#">Privacy Policy</a> | 
+                    <a href="#">Terms & Conditions</a>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="{{ url_for('static', filename='bootstrap-3.3.7-dist/js/bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/Script.js') }}"></script>
+</body>
+
+</html>

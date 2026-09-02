@@ -1,0 +1,1641 @@
+:root {
+    --navy: #0d1b3d;
+    --navy-deep: #08132d;
+    --college-blue: #0b3f74;
+    --college-blue-soft: #155794;
+    --college-sky: #2f6cf3;
+    --accent-soft: #eaf1ff;
+    --page-bg: #f3f7fb;
+    --card-bg: #ffffff;
+    --ink: #16213f;
+    --muted: #64748b;
+    --line: #d8e3ef;
+    --shadow: 0 18px 42px rgba(13, 50, 95, 0.1);
+    --success: #22c55e;
+    --danger: #ff5a5f;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    overflow-x: hidden;
+}
+
+body {
+    margin: 0;
+    background:
+        radial-gradient(circle at top left, rgba(47, 108, 243, 0.08), transparent 28%),
+        linear-gradient(180deg, #f6f9fd 0%, #edf4fb 100%);
+    color: #111111;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
+a,
+button {
+    transition: all 0.2s ease;
+}
+
+.navbar.navbar-inverse {
+    background: linear-gradient(135deg, var(--college-blue) 0%, #0e4f8c 55%, var(--college-blue-soft) 100%);
+    border: none;
+    border-radius: 0;
+    box-shadow: 0 10px 28px rgba(7, 36, 66, 0.18);
+    margin-bottom: 0;
+    position: sticky;
+    top: 0;
+    z-index: 1030;
+}
+
+.navbar.navbar-inverse .container-fluid {
+    max-width: 1800px;
+    margin: 0 auto;
+    padding: 0 28px;
+}
+
+.navbar-header {
+    float: none;
+}
+
+.college-header-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 28px;
+    padding: 18px 0 14px;
+}
+
+.college-brand {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    min-width: 0;
+    height: auto;
+    margin-right: 0 !important;
+    padding: 0 !important;
+    color: #ffffff !important;
+}
+
+.college-brand:hover,
+.college-brand:focus {
+    color: #ffffff !important;
+    text-decoration: none;
+}
+
+.college-brand img {
+    width: clamp(56px, 4vw, 74px);
+    height: clamp(56px, 4vw, 74px);
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+.college-brand span {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    line-height: 1.2;
+}
+
+.college-brand strong {
+    font-size: clamp(2rem, 2.4vw, 3.5rem);
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+.college-brand small {
+    margin-top: 8px;
+    color: rgba(255, 255, 255, 0.88);
+    font-size: clamp(1rem, 0.95vw, 1.35rem);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+}
+
+.college-brand em {
+    margin-top: 8px;
+    color: rgba(255, 255, 255, 0.82);
+    font-size: clamp(0.95rem, 0.9vw, 1.25rem);
+    font-style: normal;
+    letter-spacing: 0.05em;
+}
+
+.college-header-meta {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 18px;
+    flex-wrap: wrap;
+}
+
+.college-header-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 0;
+    padding: 10px 14px;
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(6px);
+}
+
+.college-header-item .glyphicon {
+    font-size: clamp(1.8rem, 2vw, 2.6rem);
+    color: #ffffff;
+}
+
+.college-header-item div {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.2;
+}
+
+.college-header-item strong {
+    font-size: clamp(1.2rem, 1.2vw, 1.7rem);
+    font-weight: 700;
+    color: #ffffff;
+}
+
+.college-header-item small {
+    margin-top: 4px;
+    font-size: clamp(1rem, 0.95vw, 1.3rem);
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.navbar.navbar-inverse .navbar-toggle {
+    margin: 28px 0 0;
+    border-color: rgba(255, 255, 255, 0.45);
+}
+
+.navbar.navbar-inverse .navbar-toggle:hover,
+.navbar.navbar-inverse .navbar-toggle:focus {
+    background: rgba(255, 255, 255, 0.12);
+}
+
+.navbar.navbar-inverse .navbar-collapse {
+    clear: both;
+    margin: 0 -28px;
+    padding: 0 28px;
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    background: rgba(255, 255, 255, 0.98);
+}
+
+.navbar.navbar-inverse .navbar-nav {
+    margin: 0;
+}
+
+.navbar.navbar-inverse .navbar-nav > li > a {
+    color: var(--ink);
+    font-size: 1.6rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    padding: 18px 16px;
+    white-space: nowrap;
+}
+
+.navbar.navbar-inverse .navbar-nav > li > a:hover,
+.navbar.navbar-inverse .navbar-nav > li > a:focus {
+    color: var(--college-blue);
+    background: transparent;
+}
+
+.college-banner {
+    position: relative;
+    overflow: hidden;
+    background:
+        linear-gradient(120deg, rgba(9, 43, 78, 0.96) 0%, rgba(21, 87, 148, 0.94) 48%, rgba(229, 239, 251, 0.96) 48%, rgba(255, 255, 255, 0.98) 100%);
+    color: #ffffff;
+    padding: clamp(52px, 6vw, 88px) 0;
+    margin-bottom: 28px;
+}
+
+.college-banner::before,
+.college-banner::after {
+    content: "";
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.college-banner::before {
+    width: 340px;
+    height: 340px;
+    top: -140px;
+    left: -80px;
+}
+
+.college-banner::after {
+    width: 220px;
+    height: 220px;
+    right: 8%;
+    bottom: -110px;
+}
+
+.college-banner .container {
+    position: relative;
+    z-index: 1;
+    max-width: 1400px;
+    width: 100%;
+    padding: 0 30px 0 clamp(30px, 7vw, 110px);
+}
+
+.college-banner h2 {
+    margin: 0 0 16px;
+    max-width: 700px;
+    font-size: clamp(3rem, 4.4vw, 5.6rem);
+    font-weight: 700;
+    line-height: 1.08;
+}
+
+.college-banner p {
+    margin: 0 0 28px;
+    max-width: 620px;
+    font-size: clamp(1.7rem, 1.55vw, 2.2rem);
+    line-height: 1.55;
+    color: rgba(255, 255, 255, 0.92);
+}
+
+.chatbot-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 9999;
+    font-family: Arial, sans-serif;
+}
+
+.chatbot-button {
+    width: 60px;
+    height: 60px;
+    border: none;
+    border-radius: 18px;
+    background: #2563eb;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.25);
+    transition: 0.3s;
+}
+
+.chatbot-button:hover {
+    transform: scale(1.08);
+}
+
+.chatbot-button img {
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+}
+
+.chatbot-window {
+    position: absolute;
+    bottom: 75px;
+    right: 0;
+    width: 330px;
+    height: 450px;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    display: none;
+    flex-direction: column;
+}
+
+.chatbot-header {
+    height: 60px;
+    padding: 10px 15px;
+    background: #2563eb;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.chatbot-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.chatbot-title img {
+    width: 35px;
+    height: 35px;
+    object-fit: contain;
+}
+
+.chatbot-close {
+    border: none;
+    background: transparent;
+    color: white;
+    font-size: 25px;
+    cursor: pointer;
+}
+
+.chatbot-messages {
+    flex: 1;
+    padding: 15px;
+    overflow-y: auto;
+    background: #f5f7fb;
+}
+
+.bot-message,
+.user-message {
+    max-width: 85%;
+    padding: 10px 12px;
+    margin-bottom: 10px;
+    border-radius: 12px;
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+.bot-message {
+    background: white;
+    color: #333;
+    border-top-left-radius: 3px;
+    margin-right: auto;
+}
+
+.user-message {
+    background: #2563eb;
+    color: white;
+    border-top-right-radius: 3px;
+    margin-left: auto;
+}
+
+.chatbot-options {
+    padding: 8px 12px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    background: white;
+}
+
+.chat-option {
+    border: 1px solid #d5d9e2;
+    background: white;
+    padding: 7px 10px;
+    border-radius: 15px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.chat-option:hover {
+    background: #2563eb;
+    color: white;
+    border-color: #2563eb;
+}
+
+.chatbot-input-area {
+    height: 55px;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border-top: 1px solid #ddd;
+    background: white;
+}
+
+.chatbot-input-area input {
+    flex: 1;
+    height: 38px;
+    padding: 0 12px;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    outline: none;
+    font-size: 13px;
+}
+
+.chatbot-input-area input:focus {
+    border-color: #2563eb;
+}
+
+.chatbot-input-area button {
+    width: 38px;
+    height: 38px;
+    border: none;
+    border-radius: 50%;
+    background: #2563eb;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.chatbot-input-area button:hover {
+    background: #1d4ed8;
+}
+
+@media (max-width: 500px) {
+    .chatbot-container {
+        right: 15px;
+        bottom: 15px;
+    }
+    .chatbot-window {
+        width: calc(100vw - 30px);
+        right: 0;
+        height: 430px;
+    }
+}
+
+.main-content {
+    padding: 0 0 36px;
+}
+
+.home-overview > [class*="col-"],
+.program-grid > [class*="col-"],
+.contact-grid > [class*="col-"] {
+    margin-bottom: 24px;
+}
+
+.section {
+    display: none;
+    padding: 0 0 32px;
+}
+
+.section.active-section {
+    display: block;
+}
+
+.section .container,
+.college-footer .container {
+    max-width: 1400px;
+    width: 100%;
+}
+
+.page-header {
+    border-bottom: 2px solid #d5e3f0;
+    margin-top: 0;
+    margin-bottom: 28px;
+}
+
+.page-header h1,
+.section h1,
+.section h2,
+.section h3 {
+    color: var(--college-blue);
+}
+
+.lead {
+    color: #2f3c4a;
+}
+
+.panel {
+    margin-bottom: 24px;
+    background: rgba(255, 255, 255, 0.98);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+}
+
+.panel-heading {
+    padding: 18px 24px;
+}
+
+.panel-body {
+    padding: 24px;
+    color: #111111;
+}
+
+.panel-heading h3 {
+    border-bottom: none;
+    color: #08132d;
+}
+
+.panel-primary {
+    border-color: rgba(11, 63, 116, 0.18);
+}
+
+.panel-primary > .panel-heading {
+    background: linear-gradient(135deg, var(--college-blue) 0%, var(--college-blue-soft) 100%);
+    border-color: transparent;
+    color: #ffffff;
+}
+
+.panel-success > .panel-heading {
+    background: linear-gradient(135deg, #195182 0%, #236ea7 100%);
+    border-color: transparent;
+    color: #ffffff;
+}
+
+.panel-warning > .panel-heading {
+    background: linear-gradient(135deg, #20344f 0%, #30557d 100%);
+    border-color: transparent;
+    color: #ffffff;
+}
+
+.panel-default > .panel-heading {
+    background: linear-gradient(180deg, #f7fbff 0%, #ebf3fb 100%);
+    color: var(--college-blue);
+    border-color: transparent;
+}
+
+.welcome-box {
+    margin-bottom: 0;
+    padding: clamp(24px, 3vw, 38px);
+    background:
+        linear-gradient(145deg, rgba(255, 255, 255, 0.98) 0%, rgba(236, 244, 253, 0.98) 100%);
+    border: 1px solid var(--line);
+    border-radius: 22px;
+    box-shadow: var(--shadow);
+}
+
+.welcome-box h2 {
+    margin-top: 0;
+    margin-bottom: 16px;
+    font-size: clamp(2.7rem, 3vw, 4.1rem);
+}
+
+.welcome-box p {
+    color: #34465b;
+    font-size: clamp(1.6rem, 1.4vw, 2rem);
+    line-height: 1.7;
+}
+
+.btn {
+    border-radius: 999px;
+    font-weight: 700;
+}
+
+.btn-lg {
+    padding: 12px 26px;
+}
+
+.btn-primary,
+.btn-primary:focus {
+    background: var(--college-blue);
+    border-color: var(--college-blue);
+}
+
+.btn-primary:hover {
+    background: var(--college-blue-soft);
+    border-color: var(--college-blue-soft);
+}
+
+.btn-success,
+.btn-success:focus {
+    background: #16375f;
+    border-color: #16375f;
+}
+
+.btn-success:hover {
+    background: #0f2844;
+    border-color: #0f2844;
+}
+
+.btn-default,
+.btn-default:focus {
+    background: #ffffff;
+    border-color: #b8c7d6;
+    color: var(--ink);
+}
+
+.btn-default:hover {
+    background: #eef5fb;
+    border-color: #9cb5cc;
+    color: var(--college-blue);
+}
+
+.alert-info {
+    background: #eaf4ff;
+    border-color: #c8def2;
+    color: #124577;
+    border-radius: 14px;
+}
+
+.form-control {
+    border: 1px solid #bfd0e0;
+    border-radius: 12px;
+    box-shadow: none;
+    min-height: 44px;
+}
+
+.form-control:focus {
+    border-color: var(--college-blue);
+    box-shadow: 0 0 0 3px rgba(11, 63, 116, 0.12);
+}
+
+.input-group-addon {
+    background: #eef5fb;
+    color: var(--college-blue);
+    border-color: #bfd0e0;
+    border-radius: 12px 0 0 12px;
+}
+
+.list-group-item {
+    color: #111111;
+    border-color: var(--line);
+}
+
+.carousel,
+.carousel-inner,
+.carousel-inner > .item {
+    border-radius: 18px;
+}
+
+.carousel-inner > .item::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(7, 36, 66, 0.08) 0%, rgba(7, 36, 66, 0.34) 100%);
+    pointer-events: none;
+}
+
+.carousel-inner > .item > img {
+    width: 100%;
+    height: clamp(220px, 34vw, 470px);
+    object-fit: cover;
+}
+
+.carousel-indicators {
+    bottom: 16px;
+}
+
+.carousel-indicators li {
+    width: 12px;
+    height: 12px;
+    margin: 0 4px;
+    border: 2px solid rgba(255, 255, 255, 0.9);
+    background: transparent;
+}
+
+.carousel-indicators .active {
+    width: 12px;
+    height: 12px;
+    background: #ffffff;
+}
+
+.carousel-control.left,
+.carousel-control.right {
+    background-image: none;
+}
+
+.carousel-control .glyphicon {
+    width: 52px;
+    height: 52px;
+    line-height: 52px;
+    margin-top: -26px;
+    border-radius: 50%;
+    background: rgba(8, 31, 55, 0.34);
+}
+
+.login-panel {
+    margin-top: 24px;
+}
+
+.admission-layout {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+    margin-top: 8px;
+}
+
+.admission-layout > [class*="col-"] {
+    display: flex;
+    margin-bottom: 24px;
+}
+
+.admission-gallery,
+.admission-form-panel {
+    width: 100%;
+    margin-bottom: 0;
+}
+
+.admission-gallery .panel-body,
+.admission-form-panel .panel-body {
+    padding: 24px;
+}
+
+.admission-gallery-copy {
+    color: #405264;
+    margin-bottom: 18px;
+    line-height: 1.7;
+}
+
+.admission-gallery-row > [class*="col-"] {
+    margin-bottom: 18px;
+}
+
+.admission-image-card {
+    overflow: hidden;
+    border-radius: 18px;
+    box-shadow: 0 16px 34px rgba(11, 63, 116, 0.14);
+    background: #dfe9f4;
+}
+
+.admission-image-card img {
+    width: 100%;
+    height: clamp(180px, 18vw, 250px);
+    object-fit: cover;
+}
+
+.admission-form {
+    max-width: 720px;
+    margin-left: auto;
+}
+
+.admission-form .form-group {
+    margin-bottom: 18px;
+}
+
+.admission-form label {
+    display: inline-block;
+    margin-bottom: 7px;
+    color: var(--college-blue);
+    font-weight: 700;
+}
+
+.admission-form textarea.form-control {
+    min-height: 110px;
+    resize: vertical;
+}
+
+.admission-form-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding-top: 6px;
+}
+
+.map-container {
+    padding: 12px;
+}
+
+.map-container iframe {
+    border-radius: 14px;
+}
+
+.college-footer {
+    background: linear-gradient(135deg, var(--college-blue) 0%, #0d3157 100%);
+    color: #ffffff;
+    padding: 20px 0 15px;
+    margin-top: 30px;
+}
+
+.college-footer h3 {
+    margin-top: 0;
+    margin-bottom: 12px;
+    color: #ffffff;
+}
+
+.college-footer p {
+    margin: 0 0 10px;
+}
+
+.college-footer hr {
+    max-width: 640px;
+    margin: 18px auto;
+    border-top: 1px solid rgba(255, 255, 255, 0.24);
+}
+
+.footer-header {
+    padding: 10px 0;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.footer-header h3 {
+    color: #fff;
+    margin: 0;
+    font-weight: 700;
+    font-size: 16px;
+}
+
+.footer-header p {
+    color: rgba(255, 255, 255, 0.8);
+    margin: 3px 0 0 0;
+    font-size: 12px;
+}
+
+.footer-content {
+    padding: 15px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.footer-section {
+    margin-bottom: 15px;
+}
+
+.footer-section h4 {
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #fff;
+    font-size: 14px;
+}
+
+.footer-section p {
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 8px;
+    font-size: 13px;
+}
+
+.footer-section ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-section li {
+    margin-bottom: 5px;
+}
+
+.footer-section a {
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+}
+
+.footer-section a:hover {
+    color: rgba(255, 255, 255, 1);
+    text-decoration: underline;
+}
+
+.footer-email {
+    color: rgba(255, 255, 255, 0.9);
+    font-weight: 600;
+}
+
+.footer-notice {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 12px;
+    margin-top: 12px;
+}
+
+.footer-bottom {
+    padding: 10px 0;
+    text-align: center;
+}
+
+.footer-bottom p {
+    color: rgba(255, 255, 255, 0.8);
+    margin: 0;
+}
+
+.footer-bottom p:last-child {
+    color: rgba(255, 255, 255, 0.7);
+    margin: 10px 0 0 0;
+    font-size: 12px;
+}
+
+.footer-bottom a {
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+}
+
+.footer-bottom a:hover {
+    color: rgba(255, 255, 255, 1);
+    text-decoration: underline;
+}
+
+/* ===== Admin Dashboard Styles ===== */
+
+.layout {
+    min-height: 100vh;
+}
+
+.mobile-navbar {
+    display: none;
+    margin-bottom: 0;
+    border: 0;
+    border-radius: 0;
+    background: linear-gradient(180deg, var(--navy) 0%, var(--navy-deep) 100%);
+    box-shadow: 0 6px 18px rgba(8, 19, 45, 0.18);
+}
+
+.mobile-navbar .navbar-brand {
+    height: auto;
+    padding: 10px 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #fff;
+}
+
+.mobile-navbar .navbar-brand:hover,
+.mobile-navbar .navbar-brand:focus {
+    color: #fff;
+}
+
+.mobile-brand-logo {
+    width: 38px;
+    height: 38px;
+    object-fit: contain;
+}
+
+.mobile-brand-text strong {
+    display: block;
+    font-size: 14px;
+    line-height: 1.2;
+}
+
+.mobile-brand-text span {
+    display: block;
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.72);
+    line-height: 1.2;
+}
+
+.mobile-navbar .navbar-toggle {
+    margin-top: 13px;
+    margin-right: 15px;
+    border-color: rgba(255, 255, 255, 0.22);
+}
+
+.mobile-navbar .navbar-toggle .icon-bar {
+    background: #fff;
+}
+
+.mobile-menu {
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    background: linear-gradient(180deg, var(--navy) 0%, var(--navy-deep) 100%);
+}
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 20;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    width: clamp(205px, 16vw, 290px);
+    height: 100vh;
+    padding: 24px 16px 24px;
+    overflow-y: auto;
+    background: linear-gradient(180deg, var(--navy) 0%, var(--navy-deep) 100%);
+    color: #fff;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.brand img {
+    width: 56px;
+    height: 56px;
+    object-fit: contain;
+}
+
+.brand h1 {
+    margin: 0;
+    font-size: 13px;
+    line-height: 1.25;
+    color: #fff;
+}
+
+.brand p {
+    margin: 4px 0 0;
+    color: rgba(255, 255, 255, 0.72);
+    font-size: 11px;
+}
+
+.sidebar-label {
+    margin: 0;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.nav-links,
+.nav-main,
+.nav-secondary,
+.nav-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.nav-links,
+.nav-main,
+.nav-secondary {
+    gap: 8px;
+}
+
+.nav-group {
+    gap: 6px;
+}
+
+.nav-secondary {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.nav-parent,
+.nav-links a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    border-radius: 8px;
+    color: rgba(255, 255, 255, 0.92);
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.nav-parent {
+    font-weight: 600;
+}
+
+.nav-sub {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-left: 12px;
+    padding-left: 12px;
+    border-left: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+.nav-sub a {
+    font-size: 13px;
+}
+
+.nav-links a.active,
+.nav-links a:hover,
+.nav-parent:hover {
+    background: linear-gradient(135deg, var(--college-sky) 0%, #245ae0 100%);
+    color: #fff;
+    box-shadow: 0 8px 18px rgba(47, 108, 243, 0.28);
+}
+
+.sidebar-footer {
+    margin-top: auto;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 11px;
+    line-height: 1.7;
+}
+
+.main,
+.student-main {
+    padding: 28px clamp(20px, 2vw, 32px);
+    margin-left: clamp(205px, 16vw, 290px);
+}
+
+.login-main {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 32px 20px;
+    margin-left: 0;
+}
+
+.content-section {
+    display: none;
+}
+
+.content-section.active-section {
+    display: block;
+}
+
+.page-shell {
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.top-strip {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.title-block h2 {
+    margin: 0;
+    font-size: clamp(28px, 2.5vw, 42px);
+    color: #10224c;
+}
+
+.title-block p {
+    margin: 8px 0 0;
+    font-size: clamp(14px, 1vw, 16px);
+    color: var(--muted);
+}
+
+.admin-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 16px;
+    border-radius: 999px;
+    background: #fff;
+    border: 1px solid #e6edf6;
+    box-shadow: var(--shadow);
+    color: #10224c;
+    font-weight: 600;
+}
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
+    margin-bottom: 18px;
+}
+
+.stat-card {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 20px;
+    background: var(--card-bg);
+    border: 1px solid #e6edf6;
+    border-radius: 14px;
+    box-shadow: var(--shadow);
+}
+
+.stat-card.primary {
+    border-color: rgba(77, 135, 217, 0.35);
+}
+
+.stat-card.warning {
+    border-color: rgba(211, 155, 36, 0.35);
+}
+
+.stat-card.success {
+    border-color: rgba(47, 158, 95, 0.35);
+}
+
+.stat-card.danger {
+    border-color: rgba(213, 92, 92, 0.35);
+}
+
+.stat-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 12px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    flex-shrink: 0;
+    color: #fff;
+}
+
+.primary .stat-icon {
+    background: linear-gradient(135deg, #2f80ed 0%, #1e64df 100%);
+}
+
+.warning .stat-icon {
+    background: linear-gradient(135deg, #ffc61b 0%, #f3b000 100%);
+}
+
+.success .stat-icon {
+    background: linear-gradient(135deg, #22c55e 0%, #0eaf48 100%);
+}
+
+.danger .stat-icon {
+    background: linear-gradient(135deg, #ff676c 0%, #f5464c 100%);
+}
+
+.stat-content {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.stat-card h3 {
+    margin: 0;
+    font-size: 13px;
+    font-weight: 500;
+    color: #425172;
+}
+
+.stat-card strong {
+    display: block;
+    margin-bottom: 2px;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--ink);
+}
+
+.stat-card span {
+    color: var(--muted);
+    font-size: 12px;
+}
+
+.panel-head {
+    padding: 16px 18px;
+    background: #fff;
+    border-bottom: 1px solid #e6edf6;
+    font-size: 16px;
+    font-weight: 600;
+    color: #10224c;
+}
+
+.filters {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 0.7fr 1fr;
+    gap: 14px;
+}
+
+.field label {
+    display: block;
+    margin-bottom: 7px;
+    font-weight: 600;
+    color: var(--ink);
+    font-size: 13px;
+}
+
+.field .form-control {
+    width: 100%;
+    height: 42px;
+    padding: 10px 12px;
+    border: 1px solid #d9e1ee;
+    border-radius: 10px;
+    background: #fff;
+    color: var(--ink);
+    font-size: 14px;
+    box-shadow: none;
+}
+
+.field .form-control:focus {
+    border-color: #8cb3ff;
+    box-shadow: 0 0 0 4px rgba(47, 108, 243, 0.12);
+}
+
+.table-wrap {
+    overflow-x: auto;
+}
+
+.app-table {
+    width: 100%;
+    min-width: 760px;
+    margin-bottom: 0;
+}
+
+.app-table > thead > tr > th,
+.app-table > tbody > tr > td {
+    padding: 12px;
+    border: 1px solid #edf1f7;
+    text-align: left;
+    vertical-align: middle;
+}
+
+.app-table > thead > tr > th {
+    background: #fff;
+    color: #10224c;
+    font-size: 14px;
+    border-bottom-width: 1px;
+}
+
+.app-table > tbody > tr > td {
+    background: #fff;
+    font-size: 14px;
+}
+
+.students-details {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    padding: 22px;
+    background: #fff;
+    border: 1px solid #e6edf6;
+    border-radius: 16px;
+    box-shadow: var(--shadow);
+}
+
+.students-details::before,
+.admission-form-card::before,
+.admin-login-card::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto;
+    height: 4px;
+    background: linear-gradient(90deg, var(--college-sky) 0%, #4aa3ff 100%);
+}
+
+.student-record-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.student-record-head h3 {
+    margin: 0;
+    font-size: 24px;
+    color: #10224c;
+}
+
+.admission-form-shell {
+    max-width: 1040px;
+    margin: 0 auto;
+}
+
+.admission-form-card {
+    position: relative;
+    overflow: hidden;
+    background: #fff;
+    border: 1px solid #e6edf6;
+    border-radius: 18px;
+    box-shadow: var(--shadow);
+}
+
+.admission-form-head {
+    padding: 26px 28px 12px;
+}
+
+.admission-form-head h2 {
+    margin: 0 0 8px;
+    font-size: 28px;
+    color: #10224c;
+}
+
+.admission-form-body {
+    padding: 0 28px 28px;
+}
+
+.admission-form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px 18px;
+}
+
+.admission-form-grid .field.full-width {
+    grid-column: 1 / -1;
+}
+
+.admission-form-grid textarea.form-control {
+    min-height: 120px;
+    resize: vertical;
+    padding-top: 12px;
+}
+
+.admin-login-shell {
+    width: 100%;
+    max-width: 540px;
+    margin: 0 auto;
+}
+
+.admin-login-card {
+    position: relative;
+    overflow: hidden;
+    background: #fff;
+    border: 1px solid #e6edf6;
+    border-radius: 18px;
+    box-shadow: var(--shadow);
+}
+
+.admin-login-head {
+    padding: 28px 26px 18px;
+    background: linear-gradient(135deg, #10224c 0%, #2f6cf3 100%);
+    color: #fff;
+}
+
+.admin-login-head h2 {
+    margin: 0;
+    font-size: clamp(28px, 3vw, 34px);
+}
+
+.admin-login-body {
+    padding: 24px;
+}
+
+.admin-login-form {
+    display: grid;
+    gap: 14px;
+}
+
+.admin-login-form label {
+    display: block;
+    margin-bottom: 7px;
+    font-weight: 600;
+    color: var(--ink);
+    font-size: 13px;
+}
+
+.admin-login-form .form-control {
+    width: 100%;
+    height: 44px;
+    padding: 10px 12px;
+    border: 1px solid #d9e1ee;
+    border-radius: 10px;
+    background: #fff;
+    color: var(--ink);
+    font-size: 14px;
+    box-shadow: none;
+}
+
+.admin-login-form .form-control:focus {
+    border-color: #8cb3ff;
+    box-shadow: 0 0 0 4px rgba(47, 108, 243, 0.12);
+}
+
+.admin-login-form .btn-primary {
+    height: 46px;
+    border-radius: 10px;
+    font-weight: 600;
+    background: linear-gradient(135deg, #2f6cf3 0%, #245ae0 100%);
+    border-color: #245ae0;
+}
+
+@media (min-width: 768px) {
+    .navbar.navbar-inverse .navbar-collapse {
+        display: block !important;
+    }
+
+    .navbar.navbar-inverse .navbar-nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        float: none;
+        width: 100%;
+    }
+
+    .navbar.navbar-inverse .navbar-nav > li {
+        float: none;
+    }
+}
+
+@media (min-width: 1500px) {
+    .navbar.navbar-inverse .container-fluid,
+    .college-banner .container,
+    .section .container,
+    .college-footer .container,
+    .page-shell {
+        max-width: 1680px;
+    }
+}
+
+@media (max-width: 1199px) {
+    .college-header-bar {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .college-header-meta {
+        justify-content: flex-start;
+    }
+
+    .cards,
+    .filters {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 991px) {
+    .navbar.navbar-inverse .container-fluid {
+        padding: 0 18px;
+    }
+
+    .navbar.navbar-inverse .navbar-collapse {
+        margin: 0 -18px;
+        padding: 0 18px;
+    }
+
+    .college-banner {
+        background: linear-gradient(180deg, rgba(9, 43, 78, 0.98) 0%, rgba(21, 87, 148, 0.96) 100%);
+    }
+
+    .college-banner .container {
+        padding: 0 18px;
+        text-align: center;
+    }
+
+    .college-banner h2,
+    .college-banner p {
+        max-width: none;
+    }
+
+    .admission-layout {
+        display: block;
+    }
+
+    .admission-layout > [class*="col-"] {
+        display: block;
+    }
+
+    .admission-form {
+        max-width: none;
+        margin-left: 0;
+    }
+}
+
+@media (max-width: 860px) {
+    .mobile-navbar {
+        display: block;
+    }
+
+    .sidebar {
+        display: none;
+    }
+
+    .main,
+    .student-main,
+    .login-main {
+        margin-left: 0;
+        padding: 18px;
+    }
+
+    .top-strip {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .admission-form-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 767px) {
+    .navbar.navbar-inverse {
+        position: sticky;
+    }
+
+    .navbar.navbar-inverse .navbar-toggle {
+        margin-top: 22px;
+    }
+
+    .college-header-bar {
+        gap: 18px;
+        padding: 14px 0 12px;
+    }
+
+    .college-brand {
+        max-width: calc(100% - 72px);
+    }
+
+    .college-header-meta {
+        width: 100%;
+    }
+
+    .college-header-item {
+        width: 100%;
+    }
+
+    .navbar.navbar-inverse .navbar-nav {
+        margin: 6px 0 10px;
+    }
+
+    .navbar.navbar-inverse .navbar-nav > li > a {
+        padding: 12px 0;
+    }
+
+    .section .container,
+    .college-footer .container {
+        padding-left: 18px;
+        padding-right: 18px;
+    }
+
+    .panel-heading,
+    .panel-body,
+    .admission-gallery .panel-body,
+    .admission-form-panel .panel-body,
+    .admission-form-head,
+    .admission-form-body,
+    .admin-login-body,
+    .admin-login-head {
+        padding-left: 18px;
+        padding-right: 18px;
+    }
+
+    .admission-form-actions .btn {
+        width: 100%;
+    }
+}
+
+@media (max-width: 640px) {
+    .cards,
+    .filters {
+        grid-template-columns: 1fr;
+    }
+
+    .panel-head {
+        font-size: 18px;
+    }
+
+    .admin-chip {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .carousel-control .glyphicon {
+        width: 42px;
+        height: 42px;
+        line-height: 42px;
+        margin-top: -21px;
+    }
+}
+
+@media (max-width: 480px) {
+    .college-brand {
+        gap: 10px;
+    }
+
+    .college-banner {
+        padding: 42px 0;
+    }
+}

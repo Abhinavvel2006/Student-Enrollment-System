@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Profile</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+
+<style>
+    :root {
+        --blue: #172b68;
+        --blue-light: #eaf0ff;
+        --black: #121212;
+        --muted: #667085;
+        --line: #e2e5ea;
+    }
+
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        margin: 0;
+        background: #ffffff;
+        color: var(--black);
+        font-family: "Segoe UI", Tahoma, sans-serif;
+    }
+
+    .student-profile .row {
+        min-height: 100vh;
+        margin: 0;
+    }
+
+    .sidepanel-container {
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 1000;
+        height: 100vh;
+        padding: 36px 24px 24px;
+        background: var(--blue);
+        color: #ffffff;
+    }
+
+    .sidepanel-profile {
+        text-align: center;
+    }
+
+    .profile-initials {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 78px;
+        height: 78px;
+        margin: 0 auto 16px;
+        border: 3px solid rgba(255, 255, 255, 0.7);
+        border-radius: 50%;
+        background: #ffffff;
+        color: var(--blue);
+        font-size: 24px;
+        font-weight: 700;
+    }
+
+    .sidepanel-profile h4 {
+        margin: 0;
+        font-size: 18px;
+        font-weight: 600;
+    }
+
+    .sidepanel-profile p {
+        margin: 7px 0 0;
+        color: #b9c7f1;
+        font-size: 12px;
+    }
+
+    .navbar-nav {
+        width: 100%;
+        margin-top: 54px;
+    }
+
+    .navbar-links {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    .navbar-links li + li {
+        margin-top: 8px;
+    }
+
+    .navbar-links a {
+        display: block;
+        padding: 13px 16px;
+        border-radius: 4px;
+        color: #ffffff;
+        font-size: 14px;
+        text-decoration: none;
+    }
+
+    .navbar-links a:hover,
+    .navbar-links a.active {
+        background: #ffffff;
+        color: var(--blue);
+    }
+
+    .navbar-links i {
+        width: 22px;
+        margin-right: 8px;
+        text-align: center;
+    }
+
+    .sidepanel-footer {
+        margin-top: auto;
+        color: #b9c7f1;
+        font-size: 11px;
+        line-height: 1.7;
+        text-align: center;
+        text-transform: uppercase;
+    }
+
+    .content-container {
+        min-height: 100vh;
+        margin-left: 16.66666667%;
+        padding: 0 42px 48px;
+    }
+
+    .topbar {
+        display: flex;
+        align-items: center;
+        min-height: 86px;
+        border-bottom: 1px solid var(--line);
+    }
+
+    .navbar-brand {
+        display: flex;
+        align-items: center;
+        height: auto;
+        padding: 0;
+        color: var(--black) !important;
+        font-size: 16px;
+    }
+
+    .brand-logo {
+        width: 52px;
+        height: 52px;
+        margin-right: 12px;
+        object-fit: contain;
+    }
+
+    .navbar-brand small {
+        display: block;
+        margin-top: 4px;
+        color: var(--muted);
+        font-size: 11px;
+        font-weight: 400;
+    }
+
+    main {
+        padding-top: 42px;
+    }
+
+    .page-heading {
+        margin-bottom: 28px;
+    }
+
+    .page-heading h1 {
+        margin: 0 0 8px;
+        font-size: 28px;
+        font-weight: 700;
+    }
+
+    .page-heading p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 14px;
+    }
+
+    .profile-table {
+        width: 100%;
+        max-width: 760px;
+        overflow-x: auto;
+        border: 1px solid var(--line);
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 13px;
+    }
+
+    th,
+    td {
+        padding: 16px 14px;
+        border-bottom: 1px solid var(--line);
+        text-align: left;
+        vertical-align: middle;
+        white-space: nowrap;
+    }
+
+    th {
+        width: 220px;
+        background: var(--blue-light);
+        color: var(--blue);
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+    }
+
+    tbody tr:last-child td {
+        border-bottom: 0;
+    }
+
+    tbody tr:hover {
+        background: #fafbff;
+    }
+
+    @media (max-width: 991px) {
+        .sidepanel-container {
+            position: static;
+            height: auto;
+            min-height: auto;
+        }
+
+        .content-container {
+            margin-left: 0;
+            padding: 0 24px 36px;
+        }
+    }
+
+    @media (max-width: 600px) {
+        .sidepanel-container {
+            padding: 28px 20px 22px;
+        }
+
+        .navbar-nav {
+            margin-top: 28px;
+        }
+
+        .sidepanel-footer {
+            margin-top: 34px;
+        }
+
+        .content-container {
+            padding: 0 16px 28px;
+        }
+
+        .topbar {
+            min-height: 76px;
+        }
+
+        main {
+            padding-top: 30px;
+        }
+
+        .page-heading h1 {
+            font-size: 24px;
+        }
+    }
+</style>
+
+<body>
+    <div class="student-profile">
+        <div class="row">
+            <aside class="sidepanel-container col-md-2">
+                <div class="sidepanel-profile">
+                    <div class="profile-initials">SN</div>
+                    <h4>Student Name</h4>
+                    <p>Student Enrollment System</p>
+                </div>
+                <div class="navbar-nav">
+                    <ul class="navbar-links">
+                        <li><a class="active" href="#profile"><i class="fa-solid fa-user"></i>Profile</a></li>
+                        <li><a href="#logout"><i class="fa-solid fa-right-from-bracket"></i>Logout</a></li>
+                    </ul>
+                </div>
+                <div class="sidepanel-footer">&copy; 2025 Scott Christian College.<br>All rights reserved.</div>
+            </aside>
+            <div class="content-container col-md-10">
+                <nav class="topbar">
+                    <div class="container-fluid">
+                        <div class="navbar-header">
+                            <a class="navbar-brand" href="#">
+                                <img class="brand-logo" src="image.png" alt="Scott Christian College logo">
+                                <span>
+                                    <strong>Scott Christian College(Autonomous)</strong>
+                                    <small>Student Enrollment System</small>
+                                </span>
+                            </a>
+                        </div>
+                    </div>
+                </nav>
+                <main>
+                    <div class="page-heading" id="profile">
+                        <h1>Student Profile</h1>
+                        <p>View your enrollment information and academic details.</p>
+                    </div>
+                    <div class="profile-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Field</th>
+                                <th>Details</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row">Student ID</th>
+                                <td>SC2025001</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Application ID</th>
+                                <td>APP2025001</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Student Name</th>
+                                <td>Student Name</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Class NO</th>
+                                <td>01</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">DOB</th>
+                                <td>15 Jan 2005</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Gender</th>
+                                <td>Female</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Dept ID</th>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Dept name</th>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Email</th>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Phone</th>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Address</th>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Joined At</th>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    </div>
+                </main>
+                    </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+</html>

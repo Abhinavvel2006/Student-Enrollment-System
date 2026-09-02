@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+    <section id="admin-login">
+        <main class="login-main">
+            <div class="admin-login-shell">
+                <article class="admin-login-card">
+                    <div class="admin-login-head">
+                        <h2>Admin Login</h2>
+                    </div>
+
+                    <div class="admin-login-body">
+                        <form id="admin-login-form" class="admin-login-form" method="POST" action="{{ url_for('admin_login_page') }}">
+                            <div>
+                                <label for="admin-username">
+                                    Admin Username
+                                </label>
+                                <input
+                                    id="admin-username"
+                                    name="admin_username"
+                                    class="form-control"
+                                    type="text"
+                                    placeholder="Enter admin username"
+                                    required
+                                >
+                            </div>
+                            <div>
+                                <label for="admin-password">
+                                    Password
+                                </label>
+                                <input
+                                    id="admin-password"
+                                    name="admin_password"
+                                    class="form-control"
+                                    type="password"
+                                    placeholder="Enter password"
+                                    required
+                                >
+                            </div>
+
+                            <button type="submit" class="btn btn-primary">
+                                Login
+                            </button>
+                        </form>
+
+                    </div>
+                </article>
+            </div>
+        </main>
+    </section>
+</body>
+</html>

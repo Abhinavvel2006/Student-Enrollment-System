@@ -1,0 +1,22 @@
+# Python
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+
+# Environment / secrets
+.env
+config.py
+
+# PyCharm
+.idea/
+
+# VS Code (if you ever use it)
+.vscode/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Project files you don't want on GitHub
+Flowchart/
