@@ -18,5 +18,4 @@ config.py
 .DS_Store
 Thumbs.db
 
-# Project files you don't want on GitHub
 Flowchart/
