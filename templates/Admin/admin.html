@@ -399,8 +399,6 @@
                                         <label for="student-status-filter">Status</label>
                                         <select id="student-status-filter" name="student_status" class="form-control">
                                             <option value="">All</option>
-                                            <option value="NEW" {% if selected_student_status=="NEW" %} selected {%
-                                                endif %}>New</option>
                                             <option value="CONTINUE" {% if selected_student_status=="CONTINUE" %}
                                                 selected {% endif %}>Continue</option>
                                             <option value="DISCONTINUE" {% if selected_student_status=="DISCONTINUE"
@@ -441,7 +439,7 @@
                                             <th>Phone</th>
                                             <th>Status</th>
                                             <th>Joined At</th>
-                                            <th>View</th>
+                                            <th>Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody>

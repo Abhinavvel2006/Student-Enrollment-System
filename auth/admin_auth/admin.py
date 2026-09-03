@@ -384,7 +384,7 @@ def admin_update_application_status(application_id, new_status):
             INSERT INTO student_detail
             (student_id, application_id, student_name, dob, gender, department_id,
              email, phone, address, status, joined_at, department_name, class_no)
-            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, 'NEW',
+            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, 'CONTINUE',
                     CURRENT_TIMESTAMP, %s, %s)
         """, (
             student_id,
@@ -443,11 +443,11 @@ def admin_student_detail(cursor, student_search="", student_department="", stude
             sd.department_id,
             sd.department_name,
             CASE
-                WHEN UPPER(sd.status) = 'ACCEPTED' THEN 'NEW'
+                WHEN UPPER(sd.status) IN ('NEW', 'ACCEPTED') THEN 'CONTINUE'
                 ELSE UPPER(sd.status)
             END AS status,
-            DATE_FORMAT(sd.joined_at, '%%Y-%%m-%%d') AS joined_date,
-            DATE_FORMAT(sd.joined_at, '%%d-%%m-%%Y') AS joined_at
+            DATE_FORMAT(sd.joined_at, '%Y-%m-%d') AS joined_date,
+            DATE_FORMAT(sd.joined_at, '%d-%m-%Y') AS joined_at
         FROM student_detail sd
         WHERE 1 = 1
     """
@@ -476,19 +476,13 @@ def admin_student_detail(cursor, student_search="", student_department="", stude
         params.append(student_department)
 
     if student_status:
-        if student_status == "NEW":
-            student_query += """
-                AND (
-                    UPPER(sd.status) = %s
-                    OR UPPER(sd.status) = 'ACCEPTED'
-                )
-            """
-            params.append(student_status)
-        else:
-            student_query += """
-                AND UPPER(sd.status) = %s
-            """
-            params.append(student_status)
+        student_query += """
+            AND CASE
+                WHEN UPPER(sd.status) IN ('NEW', 'ACCEPTED') THEN 'CONTINUE'
+                ELSE UPPER(sd.status)
+            END = %s
+        """
+        params.append(student_status)
 
     if student_joined_date:
         student_query += """
