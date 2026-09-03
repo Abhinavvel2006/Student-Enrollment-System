@@ -68,11 +68,17 @@ def admin_dashboard():
 
     try:
 
-        # filter
+        # applicant filter
         search = request.args.get("search", "").strip()
         department = request.args.get("department", "").strip()
         status = request.args.get("status", "").strip()
         selected_date = request.args.get("date", "").strip()
+
+        # student detail filter
+        student_search = request.args.get("student_search", "").strip()
+        student_department = request.args.get("student_department", "").strip()
+        student_status = request.args.get("student_status", "").strip().upper()
+        student_joined_date = request.args.get("student_joined_date", "").strip()
 
 
         connection = mysql.connector.connect(
@@ -197,6 +203,14 @@ def admin_dashboard():
         cursor.execute(query6)
         departments = cursor.fetchall()
 
+        student_records, student_departments = admin_student_detail(
+            cursor,
+            student_search=student_search,
+            student_department=student_department,
+            student_status=student_status,
+            student_joined_date=student_joined_date
+        )
+
         return render_template("Admin/admin.html",
                total_applicant=total_applicant,
                total_pending=pending_applicant,
@@ -207,7 +221,13 @@ def admin_dashboard():
                search=search,
                selected_department=department,
                selected_status=status,
-               selected_date=selected_date
+               selected_date=selected_date,
+               student_records=student_records,
+               student_departments=student_departments,
+               student_search=student_search,
+               selected_student_department=student_department,
+               selected_student_status=student_status,
+               selected_student_joined_date=student_joined_date
         )
 
     except Error as e:
@@ -364,7 +384,7 @@ def admin_update_application_status(application_id, new_status):
             INSERT INTO student_detail
             (student_id, application_id, student_name, dob, gender, department_id,
              email, phone, address, status, joined_at, department_name, class_no)
-            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, 'ACCEPTED',
+            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, 'NEW',
                     CURRENT_TIMESTAMP, %s, %s)
         """, (
             student_id,
@@ -410,6 +430,90 @@ def admin_accept_application(application_id):
 def admin_reject_application(application_id):
     return admin_update_application_status(application_id, "REJECTED")
 
+def admin_student_detail(cursor, student_search="", student_department="", student_status="", student_joined_date=""):
+
+    student_query = """
+        SELECT
+            sd.student_id,
+            sd.application_id AS app_id,
+            sd.student_name,
+            sd.email,
+            sd.phone,
+            sd.address,
+            sd.department_id,
+            sd.department_name,
+            CASE
+                WHEN UPPER(sd.status) = 'ACCEPTED' THEN 'NEW'
+                ELSE UPPER(sd.status)
+            END AS status,
+            DATE_FORMAT(sd.joined_at, '%%Y-%%m-%%d') AS joined_date,
+            DATE_FORMAT(sd.joined_at, '%%d-%%m-%%Y') AS joined_at
+        FROM student_detail sd
+        WHERE 1 = 1
+    """
+
+    params = []
+
+    if student_search:
+        student_query += """
+            AND (
+                sd.student_id LIKE %s
+                OR CAST(sd.application_id AS CHAR) LIKE %s
+                OR sd.student_name LIKE %s
+            )
+        """
+        student_search_value = f"%{student_search}%"
+        params.extend([
+            student_search_value,
+            student_search_value,
+            student_search_value
+        ])
+
+    if student_department:
+        student_query += """
+            AND sd.department_id = %s
+        """
+        params.append(student_department)
+
+    if student_status:
+        if student_status == "NEW":
+            student_query += """
+                AND (
+                    UPPER(sd.status) = %s
+                    OR UPPER(sd.status) = 'ACCEPTED'
+                )
+            """
+            params.append(student_status)
+        else:
+            student_query += """
+                AND UPPER(sd.status) = %s
+            """
+            params.append(student_status)
+
+    if student_joined_date:
+        student_query += """
+            AND DATE(sd.joined_at) = %s
+        """
+        params.append(student_joined_date)
+
+    student_query += """
+        ORDER BY sd.joined_at DESC, sd.student_id DESC
+    """
+
+    cursor.execute(student_query, params)
+    student_records = cursor.fetchall()
+
+    cursor.execute("""
+        SELECT DISTINCT
+            department_id,
+            department_name
+        FROM student_detail
+        WHERE department_name IS NOT NULL
+        ORDER BY department_name
+    """)
+    student_departments = cursor.fetchall()
+
+    return student_records, student_departments
 # def admin_student_page():
 #
 #     if not session.get("admin_logged_in"):

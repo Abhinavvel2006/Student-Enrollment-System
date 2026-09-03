@@ -372,83 +372,142 @@
                     <section class="panel">
                         <div class="panel-head">Find Student Details</div>
                         <div class="panel-body">
-                            <div class="filters">
-                                <div class="field">
-                                    <label for="student-search">Search Student</label>
-                                    <input id="student-search" class="form-control" type="text"
-                                        placeholder="Search by student name, ID or application ID">
+                            <form method="GET" action="{{ url_for('admin_dashboard') }}" class="filter-form"
+                                id="student-filter-form">
+                                <div class="filters">
+                                    <div class="field">
+                                        <label for="student-search">Search Student</label>
+                                        <input id="student-search" class="form-control" type="text"
+                                            name="student_search"
+                                            placeholder="Search by student name, student ID or application ID"
+                                            value="{{ student_search or '' }}">
+                                    </div>
+                                    <div class="field">
+                                        <label for="student-dept-filter">Department</label>
+                                        <select id="student-dept-filter" name="student_department" class="form-control">
+                                            <option value="">All Departments</option>
+                                            {% for department in student_departments %}
+                                            <option value="{{ department.department_id }}" {% if
+                                                selected_student_department==department.department_id|string %} selected
+                                                {% endif %}>
+                                                {{ department.department_name }}
+                                            </option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                    <div class="field">
+                                        <label for="student-status-filter">Status</label>
+                                        <select id="student-status-filter" name="student_status" class="form-control">
+                                            <option value="">All</option>
+                                            <option value="NEW" {% if selected_student_status=="NEW" %} selected {%
+                                                endif %}>New</option>
+                                            <option value="CONTINUE" {% if selected_student_status=="CONTINUE" %}
+                                                selected {% endif %}>Continue</option>
+                                            <option value="DISCONTINUE" {% if selected_student_status=="DISCONTINUE"
+                                                %} selected {% endif %}>Discontinue</option>
+                                        </select>
+                                    </div>
+                                    <div class="field">
+                                        <label for="student-joined-filter">Joined Date</label>
+                                        <input id="student-joined-filter" class="form-control" type="date"
+                                            name="student_joined_date"
+                                            value="{{ selected_student_joined_date or '' }}">
+                                    </div>
+                                    <div class="filter-btn">
+                                        <button type="submit" class="btn btn-primary btn-sm">Filter</button>
+                                        <button type="button" id="clear-student-filter"
+                                            class="btn btn-danger btn-sm">Clear</button>
+                                    </div>
                                 </div>
-                                <div class="field">
-                                    <label for="student-dept-filter">Department</label>
-                                    <select id="student-dept-filter" class="form-control">
-                                        <option>All Departments</option>
-                                        <option>BCA</option>
-                                        <option>BSc Computer Science</option>
-                                        <option>B.Com</option>
-                                        <option>BA History</option>
-                                    </select>
-                                </div>
-                                <div class="field">
-                                    <label for="student-status-filter">Status</label>
-                                    <select id="student-status-filter" class="form-control">
-                                        <option>All</option>
-                                        <option>Pending</option>
-                                        <option>Accepted</option>
-                                        <option>Rejected</option>
-                                    </select>
-                                </div>
-                                <div class="field">
-                                    <label for="student-joined-filter">Joined Date</label>
-                                    <input id="student-joined-filter" class="form-control" type="date">
-                                </div>
-                            </div>
+                            </form>
                         </div>
                     </section>
 
                     <section id="student-detail">
                         <div class="students-details">
-                            <form method="post" action="/save">
-                                <div class="student-record-head">
-                                    <div>
-                                        <h3>Student Details</h3>
-                                    </div>
+                            <div class="student-record-head">
+                                <div>
+                                    <h3>Student Details</h3>
                                 </div>
-                                <div class="table-wrap">
-                                    <table class="table app-table">
-                                        <thead>
-                                            <tr>
-                                                <th>Student ID</th>
-                                                <th>Application ID</th>
-                                                <th>Student Name</th>
-                                                <th>Email</th>
-                                                <th>Phone</th>
-                                                <th>Status</th>
-                                                <th>Joined At</th>
-                                                <th>View</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>-</td>
-                                                <td>-</td>
-                                                <td>-</td>
-                                                <td>-</td>
-                                                <td>-</td>
-                                                <td>-</td>
-                                                <td>-</td>
-                                                <td><a class="view-btn" href="#"><i class="fa-solid fa-arrow-right"
-                                                            style="color: rgb(32, 68, 129);"></i></a></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </form>
+                            </div>
+                            <div class="table-wrap">
+                                <table class="table app-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Student ID</th>
+                                            <th>Application ID</th>
+                                            <th>Student Name</th>
+                                            <th>Email</th>
+                                            <th>Phone</th>
+                                            <th>Status</th>
+                                            <th>Joined At</th>
+                                            <th>View</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% if student_records %}
+                                        {% for student in student_records %}
+                                        <tr>
+                                            <td>{{ student.student_id }}</td>
+                                            <td>{{ student.app_id }}</td>
+                                            <td>{{ student.student_name }}</td>
+                                            <td>{{ student.email }}</td>
+                                            <td>{{ student.phone }}</td>
+                                            <td>{{ student.status }}</td>
+                                            <td>{{ student.joined_at }}</td>
+                                            <td>
+                                                <button type="button" class="btn btn-default btn-sm student-view-btn"
+                                                    data-toggle="modal"
+                                                    data-target="#student-view-modal-{{ loop.index }}">
+                                                    View
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
+                                        {% else %}
+                                        <tr>
+                                            <td colspan="8" class="empty-table-state">No student details found.</td>
+                                        </tr>
+                                        {% endif %}
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </section>
                 </div>
             </main>
         </section>
     </div>
+
+    {% for student in student_records %}
+    <div class="modal fade" id="student-view-modal-{{ loop.index }}" tabindex="-1" role="dialog"
+        aria-labelledby="student-view-label-{{ loop.index }}">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content student-modal">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="student-view-label-{{ loop.index }}">Student Information</h4>
+                </div>
+                <div class="modal-body student-modal-body">
+                    <div class="student-modal-grid">
+                        <div><strong>Student ID</strong><span>{{ student.student_id }}</span></div>
+                        <div><strong>Application ID</strong><span>{{ student.app_id }}</span></div>
+                        <div><strong>Student Name</strong><span>{{ student.student_name }}</span></div>
+                        <div><strong>Email</strong><span>{{ student.email }}</span></div>
+                        <div><strong>Phone</strong><span>{{ student.phone }}</span></div>
+                        <div><strong>Department</strong><span>{{ student.department_name }}</span></div>
+                        <div><strong>Status</strong><span>{{ student.status }}</span></div>
+                        <div><strong>Joined At</strong><span>{{ student.joined_at }}</span></div>
+                        <div class="full-width"><strong>Address</strong><span>{{ student.address }}</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>

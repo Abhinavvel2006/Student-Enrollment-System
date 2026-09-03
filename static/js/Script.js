@@ -57,6 +57,8 @@ document.addEventListener('DOMContentLoaded', function () {
     var adminLoginStatus = document.getElementById("admin-login-status");
     var applicantFilterForm = document.getElementById("applicant-filter-form");
     var clearApplicantFilterButton = document.getElementById("clear-applicant-filter");
+    var studentFilterForm = document.getElementById("student-filter-form");
+    var clearStudentFilterButton = document.getElementById("clear-student-filter");
 
     function showSection(sectionId) {
         sections.forEach(function (section) {
@@ -90,6 +92,18 @@ document.addEventListener('DOMContentLoaded', function () {
     if (clearApplicantFilterButton) {
         clearApplicantFilterButton.addEventListener("click", function () {
             window.location.href = window.location.pathname + "#appication";
+        });
+    }
+
+    if (studentFilterForm) {
+        studentFilterForm.addEventListener("submit", function () {
+            studentFilterForm.action = window.location.pathname + "#allstudent";
+        });
+    }
+
+    if (clearStudentFilterButton) {
+        clearStudentFilterButton.addEventListener("click", function () {
+            window.location.href = window.location.pathname + "#allstudent";
         });
     }
 

@@ -187,3 +187,7 @@ select * from student_detail;
 select database();
 
 desc student_detail;
+
+select * from student_detail;
+
+use college_project_2;

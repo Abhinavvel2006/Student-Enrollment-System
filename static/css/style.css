@@ -1254,6 +1254,10 @@ button {
     padding: 10px 12px;
 }
 
+.filters .filter-btn:last-child {
+    grid-column: auto;
+}
+
 .field label {
     display: block;
     margin-bottom: 7px;
@@ -1309,6 +1313,12 @@ button {
     font-size: 14px;
 }
 
+.empty-table-state {
+    text-align: center !important;
+    color: var(--muted);
+    font-weight: 600;
+}
+
 .students-details {
     position: relative;
     overflow: hidden;
@@ -1344,6 +1354,56 @@ button {
     margin: 0;
     font-size: 24px;
     color: #10224c;
+}
+
+.student-view-btn {
+    min-width: 74px;
+}
+
+.student-modal {
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+.student-modal .modal-header {
+    border-bottom: 1px solid #e6edf6;
+    background: linear-gradient(180deg, #f8fbff 0%, #eef5fb 100%);
+}
+
+.student-modal .modal-title {
+    color: #10224c;
+    font-weight: 700;
+}
+
+.student-modal-body {
+    padding: 20px 22px;
+}
+
+.student-modal-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px 18px;
+}
+
+.student-modal-grid div {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.student-modal-grid strong {
+    color: #10224c;
+    font-size: 13px;
+}
+
+.student-modal-grid span {
+    color: #31415f;
+    line-height: 1.5;
+    word-break: break-word;
+}
+
+.student-modal-grid .full-width {
+    grid-column: 1 / -1;
 }
 
 .admission-form-shell {
@@ -1627,6 +1687,14 @@ button {
     .cards,
     .filters {
         grid-template-columns: 1fr;
+    }
+
+    .student-modal-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .student-modal-grid .full-width {
+        grid-column: auto;
     }
 
     .filter-btn {
