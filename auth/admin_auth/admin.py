@@ -63,6 +63,17 @@ def admin_dashboard():
     if not session.get("admin_logged_in"):
         return redirect(url_for("admin_login_page"))
 
+    section = request.args.get("section", "application").strip()
+
+    allowed_section = (
+        "application",
+        "student_admission",
+        "all_student",
+    )
+
+    if section not in allowed_section:
+        section = "application"
+
     connection = None
     cursor = None
 
@@ -227,7 +238,8 @@ def admin_dashboard():
                student_search=student_search,
                selected_student_department=student_department,
                selected_student_status=student_status,
-               selected_student_joined_date=student_joined_date
+               selected_student_joined_date=student_joined_date,
+               section=section
         )
 
     except Error as e:
@@ -285,7 +297,7 @@ def admin_student_admission():
         cursor.execute(query, (student_name, dob, gender, department_id, email, phone, address, status))
         connection.commit()
         flash("Student admission successfully added", "success")
-        return redirect(url_for("admin_dashboard"))
+        return redirect(url_for("admin_dashboard", section="student_admission"))
 
     except Error as e:
 
@@ -294,7 +306,7 @@ def admin_student_admission():
 
         print("MYsql Error:", e)
         flash(f"MYSQL Error occurred {e}", "danger")
-        return redirect(url_for("admin_dashboard"))
+        return redirect(url_for("admin_dashboard", section="student_admission"))
 
     finally:
 
@@ -401,14 +413,14 @@ def admin_update_application_status(application_id, new_status):
         ))
         connection.commit()
         flash(f"Application accepted. Student ID: {student_id}", "success")
-        return redirect(url_for("admin_dashboard") + "#appication")
+        return redirect(url_for("admin_dashboard") + "#application")
 
     except Error as e:
         if connection:
             connection.rollback()
         print("Database Error:", e)
         flash("Could not update the application. Please try again.", "danger")
-        return redirect(url_for("admin_dashboard") + "#appication")
+        return redirect(url_for("admin_dashboard") + "#application")
 
     finally:
         if cursor and student_id_lock_acquired:

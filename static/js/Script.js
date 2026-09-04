@@ -48,63 +48,60 @@ document.addEventListener('DOMContentLoaded', function () {
     showSection(initialSection);
 });
 
-//admin section
-
+// admin section
 (function () {
+
+    var mobileSidebar = document.getElementById("mobileSidebarNav");
+
+    var clearApplicantFilterButton =
+        document.getElementById("clear-applicant-filter");
+
+    var clearStudentFilterButton =
+        document.getElementById("clear-student-filter");
+
+
+    // Close mobile menu after navigation
     var navLinks = document.querySelectorAll(".nav-link");
-    var sections = document.querySelectorAll(".content-section");
-    var adminLoginForm = document.getElementById("admin-login-form");
-    var adminLoginStatus = document.getElementById("admin-login-status");
-    var applicantFilterForm = document.getElementById("applicant-filter-form");
-    var clearApplicantFilterButton = document.getElementById("clear-applicant-filter");
-    var studentFilterForm = document.getElementById("student-filter-form");
-    var clearStudentFilterButton = document.getElementById("clear-student-filter");
-
-    function showSection(sectionId) {
-        sections.forEach(function (section) {
-            section.classList.toggle("active-section", section.id === sectionId);
-        });
-
-        navLinks.forEach(function (link) {
-            link.classList.toggle("active", link.getAttribute("data-target") === sectionId);
-        });
-    }
 
     navLinks.forEach(function (link) {
-        link.addEventListener("click", function (event) {
-            event.preventDefault();
-            var sectionId = link.getAttribute("data-target");
-            showSection(sectionId);
 
-            var mobileSidebar = document.getElementById("mobileSidebarNav");
-            if (mobileSidebar && mobileSidebar.classList.contains("in")) {
+        link.addEventListener("click", function () {
+
+            if (
+                mobileSidebar &&
+                mobileSidebar.classList.contains("in")
+            ) {
                 window.jQuery(mobileSidebar).collapse("hide");
             }
+
         });
+
     });
 
-    if (applicantFilterForm) {
-        applicantFilterForm.addEventListener("submit", function () {
-            applicantFilterForm.action = window.location.pathname + "#appication";
-        });
-    }
 
+    // Clear applicant filter
     if (clearApplicantFilterButton) {
+
         clearApplicantFilterButton.addEventListener("click", function () {
-            window.location.href = window.location.pathname + "#appication";
+
+            window.location.href =
+                "/admin?section=application";
+
         });
+
     }
 
-    if (studentFilterForm) {
-        studentFilterForm.addEventListener("submit", function () {
-            studentFilterForm.action = window.location.pathname + "#allstudent";
-        });
-    }
 
+    // Clear student filter
     if (clearStudentFilterButton) {
+
         clearStudentFilterButton.addEventListener("click", function () {
-            window.location.href = window.location.pathname + "#allstudent";
+
+            window.location.href =
+                "/admin?section=all_student";
+
         });
+
     }
 
 }());
@@ -157,17 +154,17 @@ document.addEventListener("DOMContentLoaded", function () {
             })
         })
 
-        .then(response => response.json())
-        .then(data => {
-            addMessage(data.reply, "bot");
-        })
-        .catch(error => {
-            console.error("Error:", error);
-            addMessage(
-                "Sorry, something went wrong. Please try again.",
-                "bot"
-            );
-        });
+            .then(response => response.json())
+            .then(data => {
+                addMessage(data.reply, "bot");
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                addMessage(
+                    "Sorry, something went wrong. Please try again.",
+                    "bot"
+                );
+            });
     }
 
     chatbotSend.addEventListener("click", function () {

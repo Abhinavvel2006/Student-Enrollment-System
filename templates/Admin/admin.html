@@ -64,14 +64,19 @@
                             <div class="nav-group">
                                 <div class="nav-parent"><i class="fa-solid fa-house"></i> Dashboard</div>
                                 <div class="nav-sub">
-                                    <a href="#" class="active nav-link" data-target="appication"><i
-                                            class="fa-regular fa-file-lines"></i> Admission
+                                    <a href="{{ url_for('admin_dashboard', section='application') }}"
+                                        class="nav-link {% if section == 'application' %}active{% endif %}"
+                                        data-target="application"><i class="fa-regular fa-file-lines"></i> Admission
                                         Applications</a>
                                 </div>
                             </div>
-                            <a href="#" class="nav-link" data-target="student-admission"><i
-                                    class="fa-solid fa-user-plus"></i> Student Admission</a>
-                            <a href="#" class="nav-link" data-target="allstudent"><i class="fa-solid fa-user-group"></i>
+                            <a href="{{ url_for('admin_dashboard', section='student_admission') }}"
+                                class="nav-link {% if section=='student_admission' %}active{% endif %}"
+                                data-target="student_admission"><i class="fa-solid fa-user-plus"></i> Student
+                                Admission</a>
+                            <a href="{{ url_for('admin_dashboard', section='all_student') }}"
+                                class="nav-link {% if section == 'all_student' %}active{% endif %}"
+                                data-target="all_student"><i class="fa-solid fa-user-group"></i>
                                 Admin Students</a>
                         </div>
                         <div class="nav-secondary">
@@ -95,22 +100,39 @@
             <nav class="nav-links">
                 <div class="nav-main">
                     <div class="nav-group">
-                        <div class="nav-parent"><i class="fa-solid fa-house"></i> Dashboard</div>
+                        <div class="nav-parent">
+                            <i class="fa-solid fa-house"></i> Dashboard
+                        </div>
+
                         <div class="nav-sub">
-                            <a href="#" class="active nav-link" data-target="appication"><i
-                                    class="fa-regular fa-file-lines"></i> Admission
-                                Applications</a>
+                            <a href="{{ url_for('admin_dashboard', section='application') }}"
+                                class="nav-link {% if section == 'application' %}active{% endif %}"
+                                data-target="application">
+
+                                <i class="fa-regular fa-file-lines"></i>
+                                Admission Applications
+                            </a>
                         </div>
                     </div>
-                    <a href="#" class="nav-link" data-target="student-admission"><i class="fa-solid fa-user-plus"></i>
-                        Student Admission</a>
-                    <a href="#" class="nav-link" data-target="allstudent"><i class="fa-solid fa-user-group"></i> Admin
-                        Students</a>
-                </div>
-                <div class="nav-secondary">
-                    <a href="{{ url_for('admin_logout') }}" class="logout-link"><i
-                            class="fa-solid fa-right-from-bracket"></i> Logout</a>
-                </div>
+
+                    <a href="{{ url_for('admin_dashboard', section='student_admission') }}"
+                        class="nav-link {% if section == 'student_admission' %}active{% endif %}"
+                        data-target="student_admission">
+
+                        <i class="fa-solid fa-user-plus"></i>
+                        Student Admission
+                    </a>
+
+                    <a href="{{ url_for('admin_dashboard', section='all_student') }}"
+                        class="nav-link {% if section == 'all_student' %}active{% endif %}" data-target="all_student">
+
+                        <i class="fa-solid fa-user-group"></i>
+                        Admin Students
+                    </a>
+                    <div class="nav-secondary">
+                        <a href="{{ url_for('admin_logout') }}" class="logout-link"><i
+                                class="fa-solid fa-right-from-bracket"></i> Logout</a>
+                    </div>
             </nav>
 
             <div class="sidebar-footer">
@@ -118,7 +140,7 @@
                 <div>All rights reserved</div>
             </div>
         </aside>
-        <section id="appication" class="content-section active-section">
+        <section id="application" class="content-section {% if section == 'application' %}active-section{% endif %}">
             <main class="main">
                 <div class="page-shell">
                     <div class="top-strip">
@@ -175,6 +197,7 @@
                         <div class="panel-body">
                             <form method="GET" action="{{ url_for('admin_dashboard') }}" class="filter-form"
                                 id="applicant-filter-form">
+                                <input type="hidden" name="section" value="application">
                                 <div class="filters">
                                     <div class="field">
                                         <label for="search-app">Search Application</label>
@@ -246,16 +269,16 @@
                                         <td class="action-buttons">
                                             <div class="action-stack">
                                                 {% if application.status == 'PENDING' %}
-                                                    <form method="POST"
-                                                        action="{{ url_for('admin_accept_application_page', application_id=application.application_id) }}">
-                                                        <button type="submit" class="btn btn-success btn-sm">Accept</button>
-                                                    </form>
-                                                    <form method="POST"
-                                                        action="{{ url_for('admin_reject_application_page', application_id=application.application_id) }}">
-                                                        <button type="submit" class="btn btn-danger btn-sm">Reject</button>
-                                                    </form>
+                                                <form method="POST"
+                                                    action="{{ url_for('admin_accept_application_page', application_id=application.application_id) }}">
+                                                    <button type="submit" class="btn btn-success btn-sm">Accept</button>
+                                                </form>
+                                                <form method="POST"
+                                                    action="{{ url_for('admin_reject_application_page', application_id=application.application_id) }}">
+                                                    <button type="submit" class="btn btn-danger btn-sm">Reject</button>
+                                                </form>
                                                 {% else %}
-                                                    <span class="text-muted">Decision finalized</span>
+                                                <span class="text-muted">Decision finalized</span>
                                                 {% endif %}
                                             </div>
                                         </td>
@@ -269,7 +292,8 @@
             </main>
         </section>
 
-        <section id="student-admission" class="content-section">
+        <section id="student_admission"
+            class="content-section {% if section == 'student_admission' %}active-section{% endif %}">
             <main class="main">
                 <div class="page-shell">
                     <div class="top-strip">
@@ -355,7 +379,7 @@
                 </div>
             </main>
         </section>
-        <section id="allstudent" class="content-section">
+        <section id="all_student" class="content-section {% if section == 'all_student' %}active-section{% endif %}">
             <main class="student-main">
                 <div class="page-shell">
                     <div class="top-strip">
@@ -374,6 +398,7 @@
                         <div class="panel-body">
                             <form method="GET" action="{{ url_for('admin_dashboard') }}" class="filter-form"
                                 id="student-filter-form">
+                                <input type="hidden" name="section" value="all_student">
                                 <div class="filters">
                                     <div class="field">
                                         <label for="student-search">Search Student</label>
@@ -401,15 +426,14 @@
                                             <option value="">All</option>
                                             <option value="CONTINUE" {% if selected_student_status=="CONTINUE" %}
                                                 selected {% endif %}>Continue</option>
-                                            <option value="DISCONTINUE" {% if selected_student_status=="DISCONTINUE"
-                                                %} selected {% endif %}>Discontinue</option>
+                                            <option value="DISCONTINUE" {% if selected_student_status=="DISCONTINUE" %}
+                                                selected {% endif %}>Discontinue</option>
                                         </select>
                                     </div>
                                     <div class="field">
                                         <label for="student-joined-filter">Joined Date</label>
                                         <input id="student-joined-filter" class="form-control" type="date"
-                                            name="student_joined_date"
-                                            value="{{ selected_student_joined_date or '' }}">
+                                            name="student_joined_date" value="{{ selected_student_joined_date or '' }}">
                                     </div>
                                     <div class="filter-btn">
                                         <button type="submit" class="btn btn-primary btn-sm">Filter</button>

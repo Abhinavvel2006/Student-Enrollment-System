@@ -17,5 +17,3 @@ config.py
 # OS files
 .DS_Store
 Thumbs.db
-
-Flowchart/
