@@ -34,6 +34,13 @@
         .action-stack .btn {
             min-width: 74px;
         }
+
+        .student-actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            white-space: nowrap;
+        }
     </style>
 </head>
 
@@ -478,11 +485,21 @@
                                             <td>{{ student.status }}</td>
                                             <td>{{ student.joined_at }}</td>
                                             <td>
-                                                <button type="button" class="btn btn-default btn-sm student-view-btn"
+                                                {% if student.status != 'DISCONTINUE' %}
+                                                <div class="student-actions">
+                                                <button type="button" class="btn btn-success btn-sm student-view-btn"
                                                     data-toggle="modal"
                                                     data-target="#student-view-modal-{{ loop.index }}">
                                                     View
                                                 </button>
+                                                <a class="btn btn-warning btn-sm student-edit-btn"
+                                                    href="{{ url_for('admin_student_edit_page', student_id=student.student_id) }}">
+                                                    Edit
+                                                </a>
+                                                </div>
+                                                {% else %}
+                                                <span class="text-muted">No actions available</span>
+                                                {% endif %}
                                             </td>
                                         </tr>
                                         {% endfor %}
@@ -517,6 +534,8 @@
                         <div><strong>Student ID</strong><span>{{ student.student_id }}</span></div>
                         <div><strong>Application ID</strong><span>{{ student.app_id }}</span></div>
                         <div><strong>Student Name</strong><span>{{ student.student_name }}</span></div>
+                        <div><strong>Student DOB</strong><span>{{ student.dob }}</span></div>
+                        <div><strong>Class No</strong><span>{{ student.class_no }}</span></div>
                         <div><strong>Email</strong><span>{{ student.email }}</span></div>
                         <div><strong>Phone</strong><span>{{ student.phone }}</span></div>
                         <div><strong>Department</strong><span>{{ student.department_name }}</span></div>

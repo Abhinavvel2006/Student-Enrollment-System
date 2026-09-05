@@ -376,11 +376,13 @@ def admin_update_application_status(application_id, new_status):
             LIMIT 1
             FOR UPDATE
         """)
+
         latest_student = cursor.fetchone()
         next_number = int(latest_student["student_id"][3:]) + 1 if latest_student else 1
         student_id = f"scc{next_number:04d}"
 
         cursor.execute("SELECT student_id FROM student_detail WHERE application_id = %s", (application_id,))
+
         if cursor.fetchone():
             raise Error("A student record already exists for this application")
 
@@ -389,16 +391,30 @@ def admin_update_application_status(application_id, new_status):
             SET status = 'ACCEPTED'
             WHERE application_id = %s AND status = 'PENDING'
         """, (application_id,))
+
         if cursor.rowcount != 1:
             raise Error("Application status could not be updated")
 
         cursor.execute("""
             INSERT INTO student_detail
-            (student_id, application_id, student_name, dob, gender, department_id,
-             email, phone, address, status, joined_at, department_name, class_no)
+            (student_id, 
+            application_id, 
+            student_name, 
+            dob, 
+            gender, 
+            department_id,
+            email, 
+            phone, 
+            address, 
+            status, 
+            joined_at, 
+            department_name, 
+            class_no)
+
             VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, 'CONTINUE',
                     CURRENT_TIMESTAMP, %s, %s)
-        """, (
+        """, 
+        (
             student_id,
             application["application_id"],
             application["student_name"],
@@ -411,13 +427,16 @@ def admin_update_application_status(application_id, new_status):
             application["department_name"],
             1
         ))
+
         connection.commit()
+
         flash(f"Application accepted. Student ID: {student_id}", "success")
         return redirect(url_for("admin_dashboard") + "#application")
 
     except Error as e:
         if connection:
             connection.rollback()
+
         print("Database Error:", e)
         flash("Could not update the application. Please try again.", "danger")
         return redirect(url_for("admin_dashboard") + "#application")
@@ -429,6 +448,7 @@ def admin_update_application_status(application_id, new_status):
                 cursor.fetchone()
             except Error as e:
                 print("Student ID lock release error:", e)
+
         if cursor:
             cursor.close()
         if connection:
@@ -442,6 +462,174 @@ def admin_accept_application(application_id):
 def admin_reject_application(application_id):
     return admin_update_application_status(application_id, "REJECTED")
 
+
+def admin_student_edit(student_id):
+
+    if not session.get("admin_logged_in"):
+        return redirect(url_for("admin_login_page"))
+
+    connection = None
+    cursor = None
+
+    try:
+
+        connection = mysql.connector.connect(
+            host=MYSQL_HOST, 
+            user=MYSQL_USER, 
+            password=MYSQL_PASSWORD,
+            database=MYSQL_DATABASE
+        )
+
+        cursor = connection.cursor(dictionary=True)
+
+        cursor.execute("""
+            SELECT 
+            sd.student_id, 
+            sd.application_id, 
+            sd.student_name, 
+            sd.dob,
+            sd.gender, 
+            sd.class_no, 
+            sd.department_id, 
+            sd.department_name,
+            sd.email, 
+            sd.phone, 
+            sd.address, 
+            sd.status
+            FROM student_detail sd
+            WHERE sd.student_id = %s
+        """, (student_id,))
+
+        student = cursor.fetchone()
+
+        if not student:
+            flash("Student record not found.", "warning")
+            return redirect(url_for("admin_dashboard", section="all_student"))
+        if str(student["status"]).upper() == "DISCONTINUE":
+            flash("Discontinued student records cannot be edited.", "warning")
+            return redirect(url_for("admin_dashboard", section="all_student"))
+        return render_template("Admin/admin_page.html", student=student)
+    
+    except Error as e:
+        print("Database Error:", e)
+        flash("Could not load the student record.", "danger")
+        return redirect(url_for("admin_dashboard", section="all_student"))
+    
+    finally:
+        if cursor:
+            cursor.close()
+        if connection:
+            connection.close()
+
+
+def admin_student_update(student_id):
+    
+    if not session.get("admin_logged_in"):
+        return redirect(url_for("admin_login_page"))
+
+    connection = None
+    cursor = None
+
+    try:
+        student_name = request.form["student_name"].strip()
+        dob = request.form["dob"]
+        gender = request.form["gender"]
+        class_no = request.form["class_no"].strip()
+        department_id = request.form["department_id"]
+        email = request.form["email"].strip()
+        phone = request.form["phone"].strip()
+        address = request.form["address"].strip()
+
+        connection = mysql.connector.connect(
+            host=MYSQL_HOST, 
+            user=MYSQL_USER, 
+            password=MYSQL_PASSWORD,
+            database=MYSQL_DATABASE
+        )
+
+        cursor = connection.cursor(dictionary=True)
+        cursor.execute(
+            "SELECT department_name FROM department WHERE department_id = %s",
+            (department_id,)
+        )
+
+        department = cursor.fetchone()
+
+        if not department:
+            raise Error("Selected department does not exist")
+
+        cursor.execute("""
+            UPDATE student_detail
+            SET student_name = %s, dob = %s, gender = %s, class_no = %s,
+                department_id = %s, department_name = %s, email = %s,
+                phone = %s, address = %s
+            WHERE student_id = %s
+        """, (
+            student_name, dob, gender, class_no, department_id,
+            department["department_name"], email, phone, address, student_id
+        ))
+
+        if cursor.rowcount != 1:
+            raise Error("Student record was not updated")
+        connection.commit()
+
+        flash("Student record updated successfully.", "success")
+
+    except (Error, KeyError) as e:
+        if connection:
+            connection.rollback()
+        print("Database Error:", e)
+        flash("Could not update the student record.", "danger")
+
+    finally:
+        if cursor:
+            cursor.close()
+        if connection:
+            connection.close()
+    return redirect(url_for("admin_dashboard", section="all_student"))
+
+
+def admin_student_discontinue(student_id):
+
+    if not session.get("admin_logged_in"):
+        return redirect(url_for("admin_login_page"))
+
+    connection = None
+    cursor = None
+
+    try:
+        connection = mysql.connector.connect(
+            host=MYSQL_HOST, 
+            user=MYSQL_USER, 
+            password=MYSQL_PASSWORD,
+            database=MYSQL_DATABASE
+        )
+
+        cursor = connection.cursor()
+        cursor.execute("""
+            UPDATE student_detail
+            SET status = 'DISCONTINUE'
+            WHERE student_id = %s
+        """, (student_id,))
+
+        if cursor.rowcount != 1:
+            raise Error("Student record was not found")
+        connection.commit()
+        flash("Student has been discontinued.", "success")
+
+    except Error as e:
+        if connection:
+            connection.rollback()
+        print("Database Error:", e)
+        flash("Could not discontinue the student.", "danger")
+
+    finally:
+        if cursor:
+            cursor.close()
+        if connection:
+            connection.close()
+    return redirect(url_for("admin_dashboard", section="all_student"))
+
 def admin_student_detail(cursor, student_search="", student_department="", student_status="", student_joined_date=""):
 
     student_query = """
@@ -449,6 +637,8 @@ def admin_student_detail(cursor, student_search="", student_department="", stude
             sd.student_id,
             sd.application_id AS app_id,
             sd.student_name,
+            sd.dob,
+            sd.class_no,
             sd.email,
             sd.phone,
             sd.address,
@@ -520,10 +710,3 @@ def admin_student_detail(cursor, student_search="", student_department="", stude
     student_departments = cursor.fetchall()
 
     return student_records, student_departments
-# def admin_student_page():
-#
-#     if not session.get("admin_logged_in"):
-#         return redirect(url_for("admin_login_page"))
-#
-#     return render_template("Admin/admin_page.html")
-

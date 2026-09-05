@@ -1360,6 +1360,12 @@ button {
     min-width: 74px;
 }
 
+.student-edit-btn{
+    min-width: 74px;
+    gap: 5px;
+    top: 5px;
+}
+
 .student-modal {
     border-radius: 16px;
     overflow: hidden;

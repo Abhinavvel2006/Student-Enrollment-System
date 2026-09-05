@@ -165,7 +165,9 @@
         background: #fafbff;
     }
 
-    .profile-table input {
+    .profile-table input,
+    .profile-table select,
+    .profile-table textarea {
         width: 100%;
         padding: 8px 12px;
         border: 1px solid var(--line);
@@ -216,6 +218,21 @@
 
     .btn-secondary:hover {
         background: #ffffff;
+    }
+
+    .btn-danger {
+        padding: 10px 24px;
+        border: 1px solid #b42318;
+        border-radius: 4px;
+        background: #d92d20;
+        color: #ffffff;
+        font-size: 13px;
+        font-weight: 600;
+        cursor: pointer;
+    }
+
+    .btn-danger:hover {
+        background: #b42318;
     }
 
     @media (max-width: 991px) {
@@ -279,11 +296,11 @@
             <div class="content-container col-md-12">
                 <nav class="topbar">
                     <div class="topbar-left">
-                        <a class="back-button" href="#back" title="Go Back">
+                        <a class="back-button" href="{{ url_for('admin_dashboard', section='all_student') }}" title="Go Back">
                             <i class="fa-solid fa-arrow-left"></i>
                         </a>
                         <div class="navbar-brand">
-                            <img class="brand-logo" src="image.png" alt="Scott Christian College logo">
+                            <img class="brand-logo" src="{{ url_for('static', filename='images/logo.png') }}" alt="Scott Christian College logo">
                             <span>
                                 <strong>Scott Christian College(Autonomous)</strong>
                                 <small>Student Enrollment System</small>
@@ -297,6 +314,7 @@
                         <p>Update student enrollment information and academic details.</p>
                     </div>
                     <div class="profile-table">
+                        <form method="post" action="{{ url_for('admin_student_update_page', student_id=student.student_id) }}">
                         <table>
                             <thead>
                                 <tr>
@@ -307,60 +325,62 @@
                             <tbody>
                                 <tr>
                                     <th scope="row">Student ID</th>
-                                    <td><input type="text" value="SC2025001" placeholder="Student ID" disabled></td>
+                                    <td><input type="text" value="{{ student.student_id }}" disabled></td>
                                 </tr>
                                 <tr>
                                     <th scope="row">Application ID</th>
-                                    <td><input type="text" value="APP2025001" placeholder="Application ID" disabled></td>
+                                    <td><input type="text" value="{{ student.application_id }}" disabled></td>
                                 </tr>
                                 <tr>
                                     <th scope="row">Student Name</th>
-                                    <td><input type="text" value="Student Name" placeholder="Student Name"></td>
+                                    <td><input name="student_name" type="text" value="{{ student.student_name }}" required></td>
                                 </tr>
                                 <tr>
                                     <th scope="row">Class NO</th>
-                                    <td><input type="text" value="01" placeholder="Class Number"></td>
+                                    <td><input name="class_no" type="text" value="{{ student.class_no }}" required></td>
                                 </tr>
                                 <tr>
                                     <th scope="row">DOB</th>
-                                    <td><input type="date" value="2005-01-15" placeholder="Date of Birth"></td>
+                                    <td><input name="dob" type="date" value="{{ student.dob }}" required></td>
                                 </tr>
                                 <tr>
                                     <th scope="row">Gender</th>
                                     <td>
-                                        <select style="width: 100%; padding: 8px 12px; border: 1px solid var(--line); border-radius: 4px; font-size: 13px;">
-                                            <option value="Female" selected>Female</option>
-                                            <option value="Male">Male</option>
-                                            <option value="Other">Other</option>
+                                        <select name="gender" required>
+                                            <option value="Female" {% if student.gender == 'Female' %}selected{% endif %}>Female</option>
+                                            <option value="Male" {% if student.gender == 'Male' %}selected{% endif %}>Male</option>
+                                            <option value="Other" {% if student.gender == 'Other' %}selected{% endif %}>Other</option>
                                         </select>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th scope="row">Dept ID</th>
-                                    <td><input type="text" placeholder="Department ID"></td>
+                                    <td><input name="department_id" type="text" value="{{ student.department_id }}" required></td>
                                 </tr>
                                 <tr>
                                     <th scope="row">Dept name</th>
-                                    <td><input type="text" placeholder="Department Name"></td>
+                                    <td><input type="text" value="{{ student.department_name }}" disabled></td>
                                 </tr>
                                 <tr>
                                     <th scope="row">Email</th>
-                                    <td><input type="email" placeholder="Email Address"></td>
+                                    <td><input name="email" type="email" value="{{ student.email }}" required></td>
                                 </tr>
                                 <tr>
                                     <th scope="row">Phone</th>
-                                    <td><input type="tel" placeholder="Phone Number"></td>
+                                    <td><input name="phone" type="tel" value="{{ student.phone }}" required></td>
                                 </tr>
                                 <tr>
                                     <th scope="row">Address</th>
-                                    <td><input type="text" placeholder="Address"></td>
+                                    <td><textarea name="address" rows="3" required>{{ student.address }}</textarea></td>
                                 </tr>
                             </tbody>
                         </table>
                         <div class="button-group">
-                            <button class="btn-primary">Save Changes</button>
-                            <button class="btn-secondary">Cancel</button>
+                            <button type="submit" class="btn-primary">Save Changes</button>
+                            <a class="btn-secondary" href="{{ url_for('admin_dashboard', section='all_student') }}">Clear</a>
+                            <button type="submit" class="btn-danger" formaction="{{ url_for('admin_student_discontinue_page', student_id=student.student_id) }}" formmethod="post" onclick="return confirm('Discontinue this student? Click OK to confirm or Cancel to go back.');">Discontinue</button>
                         </div>
+                        </form>
                     </div>
                 </main>
             </div>
