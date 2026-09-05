@@ -269,14 +269,14 @@
         <div class="row">
             <aside class="sidepanel-container col-md-2">
                 <div class="sidepanel-profile">
-                    <div class="profile-initials">SN</div>
-                    <h4>Student Name</h4>
+                    <div class="profile-initials">{{ student.student_name[:2]|upper }}</div>
+                    <h4>{{ student.student_name }}</h4>
                     <p>Student Enrollment System</p>
                 </div>
                 <div class="navbar-nav">
                     <ul class="navbar-links">
                         <li><a class="active" href="#profile"><i class="fa-solid fa-user"></i>Profile</a></li>
-                        <li><a href="#logout"><i class="fa-solid fa-right-from-bracket"></i>Logout</a></li>
+                        <li><a href="{{ url_for('student_logout') }}"><i class="fa-solid fa-right-from-bracket"></i>Logout</a></li>
                     </ul>
                 </div>
                 <div class="sidepanel-footer">&copy; 2025 Scott Christian College.<br>All rights reserved.</div>
@@ -286,7 +286,7 @@
                     <div class="container-fluid">
                         <div class="navbar-header">
                             <a class="navbar-brand" href="#">
-                                <img class="brand-logo" src="image.png" alt="Scott Christian College logo">
+                                <img class="brand-logo" src="{{ url_for('static', filename='images/logo.png') }}" alt="Scott Christian College logo">
                                 <span>
                                     <strong>Scott Christian College(Autonomous)</strong>
                                     <small>Student Enrollment System</small>
@@ -311,51 +311,51 @@
                         <tbody>
                             <tr>
                                 <th scope="row">Student ID</th>
-                                <td>SC2025001</td>
+                                <td>{{ student.student_id }}</td>
                             </tr>
                             <tr>
                                 <th scope="row">Application ID</th>
-                                <td>APP2025001</td>
+                                <td>{{ student.application_id }}</td>
                             </tr>
                             <tr>
                                 <th scope="row">Student Name</th>
-                                <td>Student Name</td>
+                                <td>{{ student.student_name }}</td>
                             </tr>
                             <tr>
                                 <th scope="row">Class NO</th>
-                                <td>01</td>
+                                <td>{{ student.class_no }}</td>
                             </tr>
                             <tr>
                                 <th scope="row">DOB</th>
-                                <td>15 Jan 2005</td>
+                                <td>{{ student.dob.strftime('%d %b %Y') if student.dob else '-' }}</td>
                             </tr>
                             <tr>
                                 <th scope="row">Gender</th>
-                                <td>Female</td>
+                                <td>{{ student.gender }}</td>
                             </tr>
                             <tr>
                                 <th scope="row">Dept ID</th>
-                                <td></td>
+                                <td>{{ student.department_id }}</td>
                             </tr>
                             <tr>
                                 <th scope="row">Dept name</th>
-                                <td></td>
+                                <td>{{ student.department_name }}</td>
                             </tr>
                             <tr>
                                 <th scope="row">Email</th>
-                                <td></td>
+                                <td>{{ student.email }}</td>
                             </tr>
                             <tr>
                                 <th scope="row">Phone</th>
-                                <td></td>
+                                <td>{{ student.phone }}</td>
                             </tr>
                             <tr>
                                 <th scope="row">Address</th>
-                                <td></td>
+                                <td>{{ student.address }}</td>
                             </tr>
                             <tr>
                                 <th scope="row">Joined At</th>
-                                <td></td>
+                                <td>{{ student.joined_at.strftime('%d %b %Y') if student.joined_at else '-' }}</td>
                             </tr>
                         </tbody>
                     </table>

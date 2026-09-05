@@ -1,4 +1,4 @@
-from flask import  flash, redirect, request, url_for, jsonify
+from flask import flash, redirect, render_template, request, url_for, jsonify, session
 from config import MYSQL_HOST, MYSQL_USER, MYSQL_PASSWORD, MYSQL_DATABASE
 import mysql.connector
 from mysql.connector import Error
@@ -57,6 +57,101 @@ def student_admission():
             connection.close()
 
         print("connection closed")
+
+
+def student_login():
+    connection = None
+    cursor = None
+
+    try:
+        username = request.form["username"].strip()
+        password = request.form["password"].strip()
+
+        connection = mysql.connector.connect(
+            host=MYSQL_HOST,
+            user=MYSQL_USER,
+            password=MYSQL_PASSWORD,
+            database=MYSQL_DATABASE
+        )
+
+        cursor = connection.cursor(dictionary=True)
+
+        cursor.execute("""
+                   SELECT sd.*
+                   FROM student_detail sd
+                   WHERE sd.student_id = %s
+                     AND DATE_FORMAT(sd.dob, '%Y-%m-%d') = %s
+                     AND UPPER(sd.status) = 'CONTINUE'
+               """, (username, password))
+
+        student = cursor.fetchone()
+
+        if not student:
+            flash("Student record not found.", "danger")
+            return redirect(url_for("index", _anchor="login"))
+
+        session["student_logged_in"] = True
+        session["student_id"] = student["student_id"]
+
+        return redirect(url_for("student_profile_page"))
+
+    except (Error, KeyError) as error:
+        print("MySQL Error in student_login():", error)
+        flash("Student login could not be completed.", "danger")
+        return redirect(url_for("index", _anchor="login"))
+
+    finally:
+        if cursor:
+            cursor.close()
+        if connection and connection.is_connected():
+            connection.close()
+
+
+def student_profile():
+    student_id = session.get("student_id")
+    if not session.get("student_logged_in") or not student_id:
+        return redirect(url_for("index", _anchor="login"))
+
+    connection = None
+    cursor = None
+
+    try:
+        connection = mysql.connector.connect(
+            host=MYSQL_HOST,
+            user=MYSQL_USER,
+            password=MYSQL_PASSWORD,
+            database=MYSQL_DATABASE
+        )
+
+        cursor = connection.cursor(dictionary=True)
+
+        cursor.execute("""
+            SELECT sd.*
+            FROM student_detail sd
+            WHERE sd.student_id = %s
+              AND UPPER(sd.status) = 'CONTINUE'
+        """, (student_id,))
+
+        student = cursor.fetchone()
+
+        if not student:
+            session.pop("student_logged_in", None)
+            session.pop("student_id", None)
+            flash("Student record not found", "danger")
+            return redirect(url_for("index", _anchor="login"))
+
+        return render_template("user/student.html", student=student)
+
+    except Error as error:
+        print("MySQL Error in student_profile():", error)
+        flash("Could not load the student profile.", "danger")
+        return redirect(url_for("index", _anchor="login"))
+
+    finally:
+        if cursor:
+            cursor.close()
+        if connection and connection.is_connected():
+            connection.close()
 
 def chatbot():
 

@@ -127,6 +127,15 @@
 
 <!--    main-->
     <div class="main-content">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="container flash-messages">
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }}">{{ message }}</div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
         <section id="home" class="section active-section">
             <div class="container">
                 <div class="panel panel-default">
@@ -528,13 +537,13 @@
                             </div>
 
                             <div class="panel-body">
-                                <form method="POST" action="#">
+                                <form method="POST" action="/student-login">
                                     <div class="form-group">
                                         <label>Username</label>
                                         <div class="input-group">
                                             <span class="input-group-addon"><span
                                                     class="glyphicon glyphicon-user"></span></span>
-                                            <input type="text" class="form-control" placeholder="Username"
+                                            <input type="text" class="form-control" placeholder="Student ID or phone"
                                                 name="username" required>
                                         </div>
                                     </div>
@@ -544,7 +553,7 @@
                                         <div class="input-group">
                                             <span class="input-group-addon"><span
                                                     class="glyphicon glyphicon-lock"></span></span>
-                                            <input type="password" class="form-control" placeholder="Password"
+                                            <input type="password" class="form-control" placeholder="Date of birth (YYYY-MM-DD)"
                                                 name="password" required>
                                         </div>
                                     </div>

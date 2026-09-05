@@ -427,6 +427,12 @@ def admin_update_application_status(application_id, new_status):
             1
         ))
 
+        cursor.execute("""
+            INSERT INTO student_login
+            (student_id, username, dob, student_password, is_active)
+            VALUES (%s, %s, %s, %s, TRUE)
+        """, (student_id, student_id, application["dob"], application["dob"]))
+
         connection.commit()
 
         flash(f"Application accepted. Student ID: {student_id}", "success")
@@ -613,6 +619,10 @@ def admin_student_discontinue(student_id):
 
         if cursor.rowcount != 1:
             raise Error("Student record was not found")
+        cursor.execute(
+            "DELETE FROM student_login WHERE student_id = %s",
+            (student_id,)
+        )
         connection.commit()
         flash("Student has been discontinued.", "success")
 

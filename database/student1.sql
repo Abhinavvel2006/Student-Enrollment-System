@@ -28,3 +28,7 @@ select * from student_admission;
 
 use college_project_2;
 select * from student_detail;
+
+desc student_login;
+
+select * from student_login;

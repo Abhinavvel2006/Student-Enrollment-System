@@ -2,7 +2,9 @@ from flask import Flask, render_template, request, redirect, url_for, session
 
 from auth.user_auth.user import (
     student_admission,
-    chatbot
+    chatbot,
+    student_login,
+    student_profile
 )
 
 from config import SECRET_KEY
@@ -37,6 +39,25 @@ def admission():
 @app.route("/chat", methods=['POST'])
 def chat():
     return chatbot()
+
+
+@app.route("/student-login", methods=["GET", "POST"])
+def student_login_page():
+    if request.method == "GET":
+        return redirect(url_for("index", _anchor="login"))
+    return student_login()
+
+
+@app.route("/student")
+def student_profile_page():
+    return student_profile()
+
+
+@app.route("/student-logout")
+def student_logout():
+    session.pop("student_logged_in", None)
+    session.pop("student_id", None)
+    return redirect(url_for("index", _anchor="login"))
 
 
 @app.route("/admin-login", methods=["GET", "POST"])
