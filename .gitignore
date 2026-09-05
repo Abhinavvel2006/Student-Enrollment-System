@@ -5,6 +5,8 @@ __pycache__/
 *.py[cod]
 *$py.class
 *.pyo
+auth/admin_auth/__pycache__/
+auth/user_auth/__pycache__/
 
 # ==========================================
 # Virtual Environment
@@ -84,3 +86,10 @@ dist/
 # Local Environment Files
 # ==========================================
 *.local
+
+# ==========================================
+# UnWanted Files
+# ==========================================
+
+Documentation/CSS_USAGE_ANALYSIS.md
+

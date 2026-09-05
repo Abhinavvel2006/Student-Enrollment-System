@@ -1,7 +1,6 @@
 from flask import flash, redirect, render_template, request, url_for, session
 from config import MYSQL_HOST, MYSQL_USER, MYSQL_PASSWORD, MYSQL_DATABASE
 import mysql.connector
-# from werkzeug.security import generate_password_hash, check_password_hash
 from mysql.connector import Error
 
 def admin_login():
