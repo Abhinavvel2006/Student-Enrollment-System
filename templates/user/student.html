@@ -47,6 +47,11 @@
         color: #ffffff;
     }
 
+    .sidepanel-container,
+    .content-container {
+        float: none;
+    }
+
     .sidepanel-profile {
         text-align: center;
     }
@@ -89,7 +94,7 @@
         list-style: none;
     }
 
-    .navbar-links li + li {
+    .navbar-links li+li {
         margin-top: 8px;
     }
 
@@ -126,6 +131,7 @@
     .content-container {
         min-height: 100vh;
         margin-left: 16.66666667%;
+        width: auto;
         padding: 0 42px 48px;
     }
 
@@ -199,7 +205,7 @@
         border-bottom: 1px solid var(--line);
         text-align: left;
         vertical-align: middle;
-        white-space: nowrap;
+        overflow-wrap: anywhere;
     }
 
     th {
@@ -225,11 +231,17 @@
             position: static;
             height: auto;
             min-height: auto;
+            width: 100%;
         }
 
         .content-container {
             margin-left: 0;
+            width: 100%;
             padding: 0 24px 36px;
+        }
+
+        .student-profile .row {
+            display: block;
         }
     }
 
@@ -252,6 +264,32 @@
 
         .topbar {
             min-height: 76px;
+            padding: 14px 0;
+        }
+
+        .navbar-brand {
+            min-width: 0;
+            max-width: 100%;
+            line-height: 1.35;
+        }
+
+        .navbar-brand span {
+            min-width: 0;
+            overflow-wrap: anywhere;
+        }
+
+        .profile-table {
+            max-width: 100%;
+        }
+
+        th,
+        td {
+            padding: 12px 10px;
+            white-space: normal;
+        }
+
+        th {
+            width: 36%;
         }
 
         main {
@@ -276,7 +314,8 @@
                 <div class="navbar-nav">
                     <ul class="navbar-links">
                         <li><a class="active" href="#profile"><i class="fa-solid fa-user"></i>Profile</a></li>
-                        <li><a href="{{ url_for('student_logout') }}"><i class="fa-solid fa-right-from-bracket"></i>Logout</a></li>
+                        <li><a href="{{ url_for('student_logout') }}"><i
+                                    class="fa-solid fa-right-from-bracket"></i>Logout</a></li>
                     </ul>
                 </div>
                 <div class="sidepanel-footer">&copy; 2025 Scott Christian College.<br>All rights reserved.</div>
@@ -286,7 +325,8 @@
                     <div class="container-fluid">
                         <div class="navbar-header">
                             <a class="navbar-brand" href="#">
-                                <img class="brand-logo" src="{{ url_for('static', filename='images/logo.png') }}" alt="Scott Christian College logo">
+                                <img class="brand-logo" src="{{ url_for('static', filename='images/logo.png') }}"
+                                    alt="Scott Christian College logo">
                                 <span>
                                     <strong>Scott Christian College(Autonomous)</strong>
                                     <small>Student Enrollment System</small>
@@ -301,69 +341,69 @@
                         <p>View your enrollment information and academic details.</p>
                     </div>
                     <div class="profile-table">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Field</th>
-                                <th>Details</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <th scope="row">Student ID</th>
-                                <td>{{ student.student_id }}</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Application ID</th>
-                                <td>{{ student.application_id }}</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Student Name</th>
-                                <td>{{ student.student_name }}</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Class NO</th>
-                                <td>{{ student.class_no }}</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">DOB</th>
-                                <td>{{ student.dob.strftime('%d %b %Y') if student.dob else '-' }}</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Gender</th>
-                                <td>{{ student.gender }}</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Dept ID</th>
-                                <td>{{ student.department_id }}</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Dept name</th>
-                                <td>{{ student.department_name }}</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Email</th>
-                                <td>{{ student.email }}</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Phone</th>
-                                <td>{{ student.phone }}</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Address</th>
-                                <td>{{ student.address }}</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Joined At</th>
-                                <td>{{ student.joined_at.strftime('%d %b %Y') if student.joined_at else '-' }}</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Field</th>
+                                    <th>Details</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th scope="row">Student ID</th>
+                                    <td>{{ student.student_id }}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Application ID</th>
+                                    <td>{{ student.application_id }}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Student Name</th>
+                                    <td>{{ student.student_name }}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Class NO</th>
+                                    <td>{{ student.class_no }}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">DOB</th>
+                                    <td>{{ student.dob.strftime('%d %b %Y') if student.dob else '-' }}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Gender</th>
+                                    <td>{{ student.gender }}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Dept ID</th>
+                                    <td>{{ student.department_id }}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Dept name</th>
+                                    <td>{{ student.department_name }}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Email</th>
+                                    <td>{{ student.email }}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Phone</th>
+                                    <td>{{ student.phone }}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Address</th>
+                                    <td>{{ student.address }}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Joined At</th>
+                                    <td>{{ student.joined_at.strftime('%d %b %Y') if student.joined_at else '-' }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </main>
-                    </div>
             </div>
         </div>
+    </div>
     </div>
 </body>
 

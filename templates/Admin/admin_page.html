@@ -41,6 +41,7 @@
     .content-container {
         min-height: 100vh;
         margin-left: 0;
+        width: 100%;
         padding: 0 42px 48px;
     }
 
@@ -144,7 +145,7 @@
         border-bottom: 1px solid var(--line);
         text-align: left;
         vertical-align: middle;
-        white-space: nowrap;
+        overflow-wrap: anywhere;
     }
 
     th {
@@ -243,6 +244,10 @@
         .content-container {
             padding: 0 24px 36px;
         }
+
+        .profile-table {
+            max-width: 100%;
+        }
     }
 
     @media (max-width: 600px) {
@@ -269,6 +274,28 @@
 
         .topbar {
             min-height: 76px;
+            padding: 14px 0;
+        }
+
+        .navbar-brand {
+            min-width: 0;
+            max-width: 100%;
+            line-height: 1.35;
+        }
+
+        .navbar-brand span {
+            min-width: 0;
+            overflow-wrap: anywhere;
+        }
+
+        th,
+        td {
+            padding: 12px 10px;
+            white-space: normal;
+        }
+
+        th {
+            width: 36%;
         }
 
         main {
@@ -291,6 +318,19 @@
 </style>
 
 <body>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="container flash-messages">
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+
     <div class="student-profile">
         <div class="row">
             <div class="content-container col-md-12">

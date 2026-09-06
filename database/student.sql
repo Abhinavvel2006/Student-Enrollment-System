@@ -191,3 +191,5 @@ desc student_detail;
 select * from student_detail;
 
 use college_project_2;
+
+select * from student_login;

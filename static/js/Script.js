@@ -1,3 +1,5 @@
+// user ui
+
 function hideAllSections() {
     const sections = document.querySelectorAll('.section');
     sections.forEach(function (section) {
@@ -48,6 +50,7 @@ document.addEventListener('DOMContentLoaded', function () {
     showSection(initialSection);
 });
 
+
 // admin section
 (function () {
 
@@ -78,7 +81,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     });
 
-
     // Clear applicant filter
     if (clearApplicantFilterButton) {
 
@@ -90,7 +92,6 @@ document.addEventListener('DOMContentLoaded', function () {
         });
 
     }
-
 
     // Clear student filter
     if (clearStudentFilterButton) {

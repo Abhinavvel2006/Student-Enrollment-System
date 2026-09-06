@@ -10,6 +10,18 @@
 </head>
 <body>
 
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+            <script>
+                window.addEventListener("load", function () {
+                    alert("{{ message }}");
+                });
+            </script>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+
     <section id="admin-login">
         <main class="login-main">
             <div class="admin-login-shell">

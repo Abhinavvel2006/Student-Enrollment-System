@@ -24,6 +24,7 @@ from auth.admin_auth.admin import (
 app = Flask(__name__)
 app.secret_key = SECRET_KEY
 
+# user ui
 
 @app.route('/')
 def index():
@@ -59,6 +60,7 @@ def student_logout():
     session.pop("student_id", None)
     return redirect(url_for("index", _anchor="login"))
 
+# admin ui
 
 @app.route("/admin-login", methods=["GET", "POST"])
 def admin_login_page():

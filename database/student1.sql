@@ -32,3 +32,9 @@ select * from student_detail;
 desc student_login;
 
 select * from student_login;
+
+UPDATE student_detail
+SET status = 'CONTINUE'
+WHERE student_id = 'scc0001';
+
+select * from student_detail;

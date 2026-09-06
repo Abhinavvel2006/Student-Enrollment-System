@@ -90,6 +90,8 @@ def student_login():
             flash("Student record not found.", "danger")
             return redirect(url_for("index", _anchor="login"))
 
+        flash("Student login successful.", "success")
+
         session["student_logged_in"] = True
         session["student_id"] = student["student_id"]
 

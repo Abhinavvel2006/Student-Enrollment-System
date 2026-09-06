@@ -65,7 +65,7 @@
         </div>
     </nav>
 
-<!--    banner-->
+    <!--    banner-->
     <div class="college-banner">
         <div class="container text-center">
             <h2>Shaping Careers. Building Futures.</h2>
@@ -74,68 +74,57 @@
         </div>
     </div>
 
-<!-- Chatbot -->
-<div class="chatbot-container">
-    <!-- Chatbot Button -->
-    <button class="chatbot-button" id="chatbotButton">
-        <img src="{{ url_for('static', filename='images/robot.jpg') }}"
-             alt="Chatbot" class="img-rounded">
-    </button>
-    <!-- Chatbot Window -->
-    <div class="chatbot-window" id="chatbotWindow">
-        <div class="chatbot-header">
-            <div class="chatbot-title">
-                <img src="{{ url_for('static', filename='images/robot.jpg') }}"
-                     alt="Robot">
-                <span>Enrollment Assistant</span>
+    <!-- Chatbot -->
+    <div class="chatbot-container">
+        <!-- Chatbot Button -->
+        <button class="chatbot-button" id="chatbotButton">
+            <img src="{{ url_for('static', filename='images/robot.jpg') }}" alt="Chatbot" class="img-rounded">
+        </button>
+        <!-- Chatbot Window -->
+        <div class="chatbot-window" id="chatbotWindow">
+            <div class="chatbot-header">
+                <div class="chatbot-title">
+                    <img src="{{ url_for('static', filename='images/robot.jpg') }}" alt="Robot">
+                    <span>Enrollment Assistant</span>
+                </div>
+                <button class="chatbot-close" id="chatbotClose">
+                    &times;
+                </button>
             </div>
-            <button class="chatbot-close" id="chatbotClose">
-                &times;
-            </button>
-        </div>
-        <div class="chatbot-messages" id="chatbotMessages">
-            <div class="bot-message">
-                Hello! 👋<br>
-                How can I help you?
+            <div class="chatbot-messages" id="chatbotMessages">
+                <div class="bot-message">
+                    Hello! 👋<br>
+                    How can I help you?
+                </div>
             </div>
-        </div>
-        <div class="chatbot-options">
-            <button class="chat-option">
-                👤 Registration
-            </button>
-            <button class="chat-option">
-                📄 Required Documents
-            </button>
-            <button class="chat-option">
-                🏫 Departments
-            </button>
-            <button class="chat-option">
-                🔍 Enrollment Status
-            </button>
-            <button class="chat-option">
-                ❓ Help
-            </button>
-        </div>
-        <div class="chatbot-input-area">
-            <input type="text" id="chatbotInput" placeholder="Type your question..." autocomplete="off">
-            <button id="chatbotSend" type="button">
-                ➤
-            </button>
+            <div class="chatbot-options">
+                <button class="chat-option">
+                    👤 Registration
+                </button>
+                <button class="chat-option">
+                    📄 Required Documents
+                </button>
+                <button class="chat-option">
+                    🏫 Departments
+                </button>
+                <button class="chat-option">
+                    🔍 Enrollment Status
+                </button>
+                <button class="chat-option">
+                    ❓ Help
+                </button>
+            </div>
+            <div class="chatbot-input-area">
+                <input type="text" id="chatbotInput" placeholder="Type your question..." autocomplete="off">
+                <button id="chatbotSend" type="button">
+                    ➤
+                </button>
+            </div>
         </div>
     </div>
-</div>
 
-<!--    main-->
+    <!--    main-->
     <div class="main-content">
-        {% with messages = get_flashed_messages(with_categories=true) %}
-            {% if messages %}
-                <div class="container flash-messages">
-                    {% for category, message in messages %}
-                        <div class="alert alert-{{ category }}">{{ message }}</div>
-                    {% endfor %}
-                </div>
-            {% endif %}
-        {% endwith %}
         <section id="home" class="section active-section">
             <div class="container">
                 <div class="panel panel-default">
@@ -528,6 +517,17 @@
         </section>
 
         <section id="login" class="section">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+            <div class="container flash-messages">
+                {% for category, message in messages %}
+                <div class="alert alert-{{ category }}">
+                    {{ message }}
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+            {% endwith %}
             <div class="container">
                 <div class="row">
                     <div class="col-md-4 col-md-offset-4">
@@ -553,8 +553,8 @@
                                         <div class="input-group">
                                             <span class="input-group-addon"><span
                                                     class="glyphicon glyphicon-lock"></span></span>
-                                            <input type="password" class="form-control" placeholder="Date of birth (YYYY-MM-DD)"
-                                                name="password" required>
+                                            <input type="password" class="form-control"
+                                                placeholder="Date of birth (YYYY-MM-DD)" name="password" required>
                                         </div>
                                     </div>
 
@@ -584,7 +584,8 @@
                                     Road, Parvathipuram, Nagercoil, Tamil Nadu - 629003</p>
                                 <hr>
                                 <p><span class="glyphicon glyphicon-envelope"></span>
-                                    <strong>Email</strong><br>scc@scottchristiancollege.edu</p>
+                                    <strong>Email</strong><br>scc@scottchristiancollege.edu
+                                </p>
                                 <hr>
                                 <p><span class="glyphicon glyphicon-phone"></span> <strong>Phone</strong><br>+91
                                     9586157231</p>
@@ -634,9 +635,11 @@
                 <!-- Contact Information -->
                 <div class="col-md-4 col-sm-6 footer-section">
                     <h4>Contact Information</h4>
-                    <p><span class="glyphicon glyphicon-map-marker"></span> <strong>Address</strong><br>K.P Road, Parvathipuram, Nagercoil, Tamil Nadu - 629003</p>
+                    <p><span class="glyphicon glyphicon-map-marker"></span> <strong>Address</strong><br>K.P Road,
+                        Parvathipuram, Nagercoil, Tamil Nadu - 629003</p>
                     <p><span class="glyphicon glyphicon-phone"></span> <strong>Phone</strong><br>+91 9586157231</p>
-                    <p><span class="glyphicon glyphicon-time"></span> <strong>Hours</strong><br>Mon - Sat, 9:00 AM - 5:00 PM</p>
+                    <p><span class="glyphicon glyphicon-time"></span> <strong>Hours</strong><br>Mon - Sat, 9:00 AM -
+                        5:00 PM</p>
                 </div>
 
                 <!-- Send Message Section -->
@@ -657,8 +660,8 @@
                     <strong>Scott Christian College</strong> | Established 1893 | Student Enrollment System
                 </p>
                 <p>
-                    &copy; 2026. All Rights Reserved. Scott Christian College | 
-                    <a href="#">Privacy Policy</a> | 
+                    &copy; 2026. All Rights Reserved. Scott Christian College |
+                    <a href="#">Privacy Policy</a> |
                     <a href="#">Terms & Conditions</a>
                 </p>
             </div>

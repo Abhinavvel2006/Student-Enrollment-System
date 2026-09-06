@@ -34,6 +34,7 @@ def admin_login():
             session["admin_logged_in"] = True
             session["admin_username"] = admin_username
 
+            flash("Admin login Successful", "success")
             return redirect(url_for("admin_dashboard"))
 
         flash("Invalid admin username or password", "danger")
