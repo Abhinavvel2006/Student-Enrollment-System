@@ -26,7 +26,6 @@ ENV/
 # ==========================================
 # Sensitive Configuration / Secrets
 # ==========================================
-config.py
 .env
 .env.*
 !.env.example
