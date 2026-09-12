@@ -1,5 +1,5 @@
 from flask import flash, redirect, render_template, request, url_for, jsonify, session
-from config import MYSQL_HOST, MYSQL_USER, MYSQL_PASSWORD, MYSQL_DATABASE
+from config import MYSQL_HOST, MYSQL_USER, MYSQL_PASSWORD, MYSQL_DATABASE, MYSQL_PORT
 import mysql.connector
 from mysql.connector import Error
 
@@ -21,7 +21,8 @@ def student_admission():
             host=MYSQL_HOST,
             user=MYSQL_USER,
             password=MYSQL_PASSWORD,
-            database=MYSQL_DATABASE
+            database=MYSQL_DATABASE,
+            port=MYSQL_PORT
         )
 
         cursor = connection.cursor()
@@ -71,7 +72,8 @@ def student_login():
             host=MYSQL_HOST,
             user=MYSQL_USER,
             password=MYSQL_PASSWORD,
-            database=MYSQL_DATABASE
+            database=MYSQL_DATABASE,
+            port=MYSQL_PORT
         )
 
         cursor = connection.cursor(dictionary=True)
@@ -122,7 +124,8 @@ def student_profile():
             host=MYSQL_HOST,
             user=MYSQL_USER,
             password=MYSQL_PASSWORD,
-            database=MYSQL_DATABASE
+            database=MYSQL_DATABASE,
+            port=MYSQL_PORT
         )
 
         cursor = connection.cursor(dictionary=True)

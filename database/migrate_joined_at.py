@@ -2,7 +2,7 @@
 
 import mysql.connector
 
-from config import MYSQL_DATABASE, MYSQL_HOST, MYSQL_PASSWORD, MYSQL_USER
+from config import MYSQL_DATABASE, MYSQL_HOST, MYSQL_PASSWORD, MYSQL_USER, MYSQL_PORT
 
 
 def migrate_joined_at():
@@ -11,6 +11,7 @@ def migrate_joined_at():
         user=MYSQL_USER,
         password=MYSQL_PASSWORD,
         database=MYSQL_DATABASE,
+        port=MYSQL_PORT
     )
     cursor = connection.cursor()
 
