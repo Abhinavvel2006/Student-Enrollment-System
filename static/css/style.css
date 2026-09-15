@@ -513,7 +513,7 @@ button {
 
 .panel-heading h3 {
     border-bottom: none;
-    color: #08132d;
+    color: #f9f9fb;
 }
 
 .panel-primary {
@@ -1677,13 +1677,24 @@ button {
     .college-brand {
         max-width: calc(100% - 72px);
     }
-
+    /* Contact and NAAC - mobile alignment */
     .college-header-meta {
         width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        justify-content: flex-end;
+        gap: 12px;
     }
-
+ 
     .college-header-item {
-        width: 100%;
+        width: 60%;
+        align-self: flex-end;
+        margin-left: auto;
+        margin-right: 0;
+        padding: 8px 12px;
+        box-sizing: border-box;
+        text-align: left;
     }
 
     .navbar.navbar-inverse .navbar-nav {
