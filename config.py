@@ -15,3 +15,8 @@ smtp_password = os.getenv("SMTP_PASS")
 
 # Flask secret key configuration
 SECRET_KEY = os.getenv("SECRET_KEY")
+
+# brevo api configuration
+
+BREVO_API_KEY = os.getenv("BREVO_API_KEY")
+BREVO_SENDER_EMAIL = os.getenv("BREVO_SENDER_EMAIL")
