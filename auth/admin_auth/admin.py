@@ -2,6 +2,7 @@ from flask import flash, redirect, render_template, request, url_for, session
 from config import MYSQL_HOST, MYSQL_USER, MYSQL_PASSWORD, MYSQL_DATABASE, MYSQL_PORT
 import mysql.connector
 from mysql.connector import Error
+from utils.email import student_mail
 
 def admin_login():
 
@@ -438,7 +439,26 @@ def admin_update_application_status(application_id, new_status):
 
         connection.commit()
 
-        flash(f"Application accepted. Student ID: {student_id}", "success")
+        email_sent = student_mail(
+            application["student_name"],
+            application["email"],
+            student_id,
+            application["dob"]
+        )
+
+        if email_sent:
+            flash(
+                f"Application accepted. Student ID: {student_id}. "
+                "Login details sent to the student's email.",
+                "success"
+            )
+        else:
+            flash(
+                f"Application accepted. Student ID: {student_id}, "
+                "but the email could not be sent.",
+                "warning"
+            )
+
         return redirect(url_for("admin_dashboard") + "#application")
 
     except Error as e:
