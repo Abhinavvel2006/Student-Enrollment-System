@@ -1,7 +1,8 @@
 from flask import flash, redirect, render_template, request, url_for, session
-from config import MYSQL_HOST, MYSQL_USER, MYSQL_PASSWORD, MYSQL_DATABASE
+from config import MYSQL_HOST, MYSQL_USER, MYSQL_PASSWORD, MYSQL_DATABASE, MYSQL_PORT
 import mysql.connector
 from mysql.connector import Error
+from utils.email import student_mail
 
 def admin_login():
 
@@ -15,7 +16,8 @@ def admin_login():
             host=MYSQL_HOST,
             user=MYSQL_USER,
             password=MYSQL_PASSWORD,
-            database=MYSQL_DATABASE
+            database=MYSQL_DATABASE,
+            port=MYSQL_PORT
         )
 
         cursor = connection.cursor()
@@ -332,7 +334,8 @@ def admin_update_application_status(application_id, new_status):
             host=MYSQL_HOST,
             user=MYSQL_USER,
             password=MYSQL_PASSWORD,
-            database=MYSQL_DATABASE
+            database=MYSQL_DATABASE,
+            port=MYSQL_PORT
         )
         cursor = connection.cursor(dictionary=True)
 
@@ -436,7 +439,26 @@ def admin_update_application_status(application_id, new_status):
 
         connection.commit()
 
-        flash(f"Application accepted. Student ID: {student_id}", "success")
+        email_sent = student_mail(
+            application["student_name"],
+            application["email"],
+            student_id,
+            application["dob"]
+        )
+
+        if email_sent:
+            flash(
+                f"Application accepted. Student ID: {student_id}. "
+                "Login details sent to the student's email.",
+                "success"
+            )
+        else:
+            flash(
+                f"Application accepted. Student ID: {student_id}, "
+                "but the email could not be sent.",
+                "warning"
+            )
+
         return redirect(url_for("admin_dashboard") + "#application")
 
     except Error as e:
@@ -550,7 +572,8 @@ def admin_student_update(student_id):
             host=MYSQL_HOST, 
             user=MYSQL_USER, 
             password=MYSQL_PASSWORD,
-            database=MYSQL_DATABASE
+            database=MYSQL_DATABASE,
+            port=MYSQL_PORT
         )
 
         cursor = connection.cursor(dictionary=True)
@@ -608,7 +631,8 @@ def admin_student_discontinue(student_id):
             host=MYSQL_HOST, 
             user=MYSQL_USER, 
             password=MYSQL_PASSWORD,
-            database=MYSQL_DATABASE
+            database=MYSQL_DATABASE,
+            port=MYSQL_PORT
         )
 
         cursor = connection.cursor()

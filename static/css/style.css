@@ -1,3 +1,6 @@
+/* ============================== */
+/* ROOT / SHARED VARIABLES        */
+/* ============================== */
 /* root  */
 
 :root {
@@ -215,10 +218,11 @@ button {
     position: relative;
     overflow: hidden;
     background:
-        linear-gradient(120deg, rgba(9, 43, 78, 0.96) 0%, rgba(21, 87, 148, 0.94) 48%, rgba(229, 239, 251, 0.96) 48%, rgba(255, 255, 255, 0.98) 100%);
+        linear-gradient(120deg, rgba(9, 43, 78, 0.96) 0%, rgba(21, 87, 148, 0.94) 50%, rgba(229, 239, 251, 0.96) 50%, rgba(255, 255, 255, 0.98) 100%);
     color: #ffffff;
-    padding: clamp(52px, 6vw, 88px) 0;
+    padding: clamp(40px, 6vw, 88px) 0;
     margin-bottom: 28px;
+    height: 360px;
 }
 
 .college-banner::before,
@@ -230,15 +234,15 @@ button {
 }
 
 .college-banner::before {
-    width: 340px;
-    height: 340px;
-    top: -140px;
-    left: -80px;
+    width: 280px;
+    height: 280px;
+    top: -100px;
+    left: -100px;
 }
 
 .college-banner::after {
-    width: 220px;
-    height: 220px;
+    width: 180px;
+    height: 180px;
     right: 8%;
     bottom: -110px;
 }
@@ -252,11 +256,12 @@ button {
 }
 
 .college-banner h2 {
-    margin: 0 0 16px;
+    margin: 0 0 10px;
     max-width: 700px;
     font-size: clamp(3rem, 4.4vw, 5.6rem);
     font-weight: 700;
     line-height: 1.08;
+    margin-top: -5px;
 }
 
 .college-banner p {
@@ -439,17 +444,7 @@ button {
     background: #1d4ed8;
 }
 
-@media (max-width: 500px) {
-    .chatbot-container {
-        right: 15px;
-        bottom: 15px;
-    }
-    .chatbot-window {
-        width: calc(100vw - 30px);
-        right: 0;
-        height: 430px;
-    }
-}
+
 
 .main-content {
     padding: 0 0 36px;
@@ -899,6 +894,15 @@ button {
     text-decoration: underline;
 }
 
+/* ============================== */
+/* USER UI                        */
+/* ============================== */
+
+/* User UI base styles are above. */
+
+/* ============================== */
+/* ADMIN UI                       */
+/* ============================== */
 /* ===== Admin Dashboard Styles ===== */
 
 .layout {
@@ -1536,65 +1540,9 @@ button {
     border-color: #245ae0;
 }
 
-@media (min-width: 768px) {
-    .navbar.navbar-inverse .navbar-collapse {
-        display: block !important;
-    }
-
-    .navbar.navbar-inverse .navbar-nav {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        float: none;
-        width: 100%;
-    }
-
-    .navbar.navbar-inverse .navbar-nav > li {
-        float: none;
-    }
-}
-
-@media (min-width: 1500px) {
-    .navbar.navbar-inverse .container-fluid,
-    .college-banner .container,
-    .section .container,
-    .college-footer .container,
-    .page-shell {
-        max-width: 1680px;
-    }
-}
-
-@media (min-width: 1920px) {
-    .navbar.navbar-inverse .container-fluid,
-    .college-banner .container,
-    .section .container,
-    .college-footer .container,
-    .page-shell {
-        max-width: 1800px;
-    }
-
-    .main,
-    .student-main {
-        padding-left: 40px;
-        padding-right: 40px;
-    }
-}
-
-@media (max-width: 1199px) {
-    .college-header-bar {
-        align-items: flex-start;
-        flex-direction: column;
-    }
-
-    .college-header-meta {
-        justify-content: flex-start;
-    }
-
-    .cards,
-    .filters {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-}
+/* ========================================== */
+/* RESPONSIVE - USER UI                      */
+/* ========================================== */
 
 @media (max-width: 991px) {
     .navbar.navbar-inverse .container-fluid {
@@ -1633,10 +1581,90 @@ button {
         margin-left: 0;
     }
 }
+@media (max-width: 500px) {
+    .chatbot-container {
+        right: 15px;
+        bottom: 15px;
+    }
+    .chatbot-window {
+        width: calc(100vw - 30px);
+        right: 0;
+        height: 430px;
+    }
+}
+@media (max-width: 480px) {
+    .college-brand {
+        gap: 10px;
+    }
+
+    .college-banner {
+        padding: 42px 0;
+    }
+}
+@media (min-width: 768px) {
+    .navbar.navbar-inverse .navbar-collapse {
+        display: block !important;
+    }
+
+    .navbar.navbar-inverse .navbar-nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        float: none;
+        width: 100%;
+    }
+
+    .navbar.navbar-inverse .navbar-nav > li {
+        float: none;
+    }
+}
+
+/* ========================================== */
+/* RESPONSIVE - ADMIN UI                     */
+/* ========================================== */
+
+
+/* ========================================== */
+/* RESPONSIVE - SHARED USER + ADMIN RULES    */
+/* ========================================== */
+
+@media (max-width: 1199px) {
+    .college-header-bar {
+        align-items: flex-start;
+        flex-direction: row;
+    }
+
+    .college-header-meta {
+        justify-content: flex-end;
+    }
+
+    .college-banner{
+        height: 300px;
+    }
+
+    .cards,
+    .filters {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 990px){
+    .college-banner{
+        height: 280px;
+    }
+}
 
 @media (max-width: 860px) {
     .mobile-navbar {
         display: block;
+    }
+
+    .college-header-meta{
+        margin-right: 30px;
+    }
+
+    .college-banner{
+        height: 250px;
     }
 
     .sidebar {
@@ -1652,14 +1680,13 @@ button {
 
     .top-strip {
         flex-direction: column;
-        align-items: flex-start;
+        align-items: flex-end;
     }
 
     .admission-form-grid {
         grid-template-columns: 1fr;
     }
 }
-
 @media (max-width: 767px) {
     .navbar.navbar-inverse {
         position: sticky;
@@ -1727,7 +1754,6 @@ button {
         width: 100%;
     }
 }
-
 @media (max-width: 640px) {
     .cards,
     .filters {
@@ -1777,13 +1803,58 @@ button {
         margin-top: -21px;
     }
 }
-
-@media (max-width: 480px) {
-    .college-brand {
-        gap: 10px;
+@media (min-width: 1500px) {
+    .navbar.navbar-inverse .container-fluid,
+    .college-banner .container,
+    .section .container,
+    .college-footer .container,
+    .page-shell {
+        max-width: 1680px;
+    }
+}
+@media (min-width: 1920px) {
+    .navbar.navbar-inverse .container-fluid,
+    .college-banner .container,
+    .section .container,
+    .college-footer .container,
+    .page-shell {
+        max-width: 1800px;
     }
 
-    .college-banner {
-        padding: 42px 0;
+    .main,
+    .student-main {
+        padding-left: 40px;
+        padding-right: 40px;
+    }
+}
+
+/* Tablet / laptop header alignment: keep Contact + NAAC together on the left */
+@media (min-width: 768px) and (max-width: 1199px) {
+    .college-header-meta {
+        width: auto;
+        align-self: flex-start;
+        justify-content: flex-start;
+        align-items: center;
+        flex-direction: row;
+        flex-wrap: nowrap;
+    }
+
+    .college-header-item {
+        flex: 0 0 auto;
+    }
+}
+
+/* Tablet footer: three equal columns from 768px to 991px */
+@media (min-width: 768px) and (max-width: 991px) {
+    .footer-content {
+        display: flex;
+        flex-wrap: nowrap;
+        align-items: flex-start;
+    }
+
+    .footer-content .footer-section {
+        float: none;
+        width: 33.33333333%;
+        flex: 0 0 33.33333333%;
     }
 }
