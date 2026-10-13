@@ -20,7 +20,6 @@ from auth.admin_auth.admin import (
     admin_student_discontinue as process_admin_student_discontinue
 )
 
-
 app = Flask(__name__)
 app.secret_key = SECRET_KEY
 

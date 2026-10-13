@@ -3,6 +3,7 @@ from config import MYSQL_HOST, MYSQL_USER, MYSQL_PASSWORD, MYSQL_DATABASE, MYSQL
 import mysql.connector
 from mysql.connector import Error
 from utils.email import student_mail
+import config
 
 def admin_login():
 
@@ -12,13 +13,16 @@ def admin_login():
     try:
         admin_username = request.form["admin_username"]
         admin_password = request.form["admin_password"]
+
         connection = mysql.connector.connect(
-            host=MYSQL_HOST,
-            user=MYSQL_USER,
-            password=MYSQL_PASSWORD,
-            database=MYSQL_DATABASE,
-            port=MYSQL_PORT
+            host=config.MYSQL_HOST,
+            user=config.MYSQL_USER,
+            password=config.MYSQL_PASSWORD,
+            database=config.MYSQL_DATABASE,
+            port=config.MYSQL_PORT,
+            connection_timeout=10
         )
+        print("Admin login database connection successful")
 
         cursor = connection.cursor()
 
